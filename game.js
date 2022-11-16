@@ -1,5 +1,7 @@
-import { Sprite } from './src/sprite.js'
-import { AttackBox, isColliding } from './src/attackbox.js'
+import { Sprite } from './src/sprite.js';
+import { AttackBox, isColliding } from './src/attackbox.js';
+import { spriteSets } from './src/animation.js';
+
 
 const canvas = document.querySelector('canvas');
 
@@ -13,7 +15,6 @@ export const env = {
 }
 
 export const renderQueue = [];
-export const listenColliders = [];
 
 canvas.width = env.width;
 canvas.height = env.height;
@@ -30,7 +31,8 @@ const playerOne = new Sprite({
         x: 0,
         y: 0
     },
-    hasGravity: true
+    hasGravity: true,
+    spriteSet: spriteSets.ronin
 })
 
 
@@ -55,25 +57,21 @@ const playerTwo = new Sprite({
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
-renderQueue.push(playerOne, playerTwo);
+const background = new Sprite({ spriteSet: spriteSets.background });
+
+
+renderQueue.push(background, playerOne, playerTwo);
 
 
 function animate() {
     window.requestAnimationFrame(animate); // this creates an infinite loop. 
-    c.fillStyle = 'black';
-    c.fillRect(0, 0, canvas.width, canvas.height);
+    // c.fillStyle = 'black';
+    // c.fillRect(0, 0, canvas.width, canvas.height);
 
     renderQueue.forEach(element => {
         element.update();
     });
 
-    listenColliders.forEach(({ rect1, rect2, callback }) => {
-
-        if (isColliding(rect1, rect2)) {
-            callback();
-        }
-
-    });
 
 }
 

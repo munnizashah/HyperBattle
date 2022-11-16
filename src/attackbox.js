@@ -1,4 +1,4 @@
-import { c, env, renderQueue, listenColliders } from '../game.js'
+import { c, env, renderQueue } from '../game.js'
 import { Sprite } from './sprite.js'
 
 export class AttackBox extends Sprite {
@@ -12,7 +12,7 @@ export class AttackBox extends Sprite {
         height = 60,
         color = 'green',
         damage,
-        spriteSrc
+        animationName = 'attack'
 
     }) {
         //Note that velocity IS NOT PASSED and is only applied when shooting
@@ -26,7 +26,7 @@ export class AttackBox extends Sprite {
         this.height = height;
 
         this.damage = damage;
-        this.spriteSrc = spriteSrc;
+        this.animationName = animationName;
         this.isShooting = isShooting;
         this.cooldown = cooldown;
         this.duration = duration;
@@ -40,6 +40,8 @@ export class AttackBox extends Sprite {
 
 
     attack() {
+
+        this.player.playAnimation(this.animationName, true);
 
         if (this.isOnCooldown) return;
 
@@ -55,24 +57,15 @@ export class AttackBox extends Sprite {
 
         if (this.isShooting) {
             this.velocity = this.attackVelocity;
-            let renderIndex = renderQueue.push(this); //returns index of pushed item
+            this.renderIndex = renderQueue.push(this) - 1; //returns length array
 
-            let listenIndex = listenColliders.push({
-                rect1: this,
-                rect2: this.player.enemy,
-                callback: () => {
-                    this.velocity = { x: 0, y: 0 };
-                    renderQueue.splice(renderIndex, 1);
-                    listenColliders.splice(listenIndex, 1);
-
-                    //DAMAGE ENEMY CODE
-                }
-            })
-
-            setTimeout(() => {
+            this.shootingTimeout = setTimeout(() => {
                 this.velocity = { x: 0, y: 0 };
                 renderQueue.splice(renderIndex, 1);
                 listenColliders.splice(listenIndex, 1);
+
+                console.log('Attack missed')
+
             }, this.duration);
 
 
@@ -89,6 +82,23 @@ export class AttackBox extends Sprite {
 
 
 
+    }
+
+    update() {
+        super.update();
+
+        //if shot lands
+        if (this.isShooting && isColliding(this, this.player.enemy)) {
+
+            this.velocity = { x: 0, y: 0 };
+            renderQueue.splice(this.renderIndex, 1);
+
+            clearTimeout(this.shootingTimeout);
+
+            //DAMAGE ENEMY CODE
+            console.log('Attack succesfull!')
+
+        }
     }
 
     draw() {
