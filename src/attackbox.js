@@ -12,7 +12,8 @@ export class AttackBox extends Sprite {
         height = 60,
         color = 'green',
         damage,
-        animationName = 'attack'
+        animationName = 'attack',
+        health = 100
 
     }) {
         //Note that velocity IS NOT PASSED and is only applied when shooting
@@ -30,6 +31,7 @@ export class AttackBox extends Sprite {
         this.isShooting = isShooting;
         this.cooldown = cooldown;
         this.duration = duration;
+        this.health = health;
 
 
 
@@ -73,7 +75,10 @@ export class AttackBox extends Sprite {
 
             if (isColliding(this, this.player.enemy)) {
                 console.log('Attack succesfull!')
-
+                enemy.health -= 20;
+                document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+                player.health -= 20;
+                document.querySelector('#playerHealth').style.width = player.health + '%'
                 //DAMAGE ENEMY CODE
             } else {
                 console.log('Attack missed')

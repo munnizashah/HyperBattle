@@ -19,18 +19,8 @@ export const renderQueue = [];
 canvas.width = env.width;
 canvas.height = env.height;
 
-c.fillRect(0, 0, canvas.width, canvas.height)
-
 
 const playerOne = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    },
-    velocity: {
-        x: 0,
-        y: 0
-    },
     hasGravity: true,
     spriteSet: spriteSets.ronin
 })
@@ -69,7 +59,6 @@ function animate() {
     renderQueue.forEach(element => {
         element.update();
     });
-
 
 }
 
