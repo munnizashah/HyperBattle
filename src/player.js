@@ -13,8 +13,6 @@ export class Player extends Sprite {
     this.moving = { right: false, left: false };
     this.jumpHeight = jumpHeight;
     this.hasDoubleJump = hasDoubleJump;
-    console.log(this.jumpHeight);
-    console.log(this.hasDoubleJump);
   }
 
   update() {

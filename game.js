@@ -32,7 +32,6 @@ const playerOne = new Player({
   },
   hasGravity: true,
   spriteSet: spriteSets.ronin,
-  hasDoubleJump: true,
 });
 
 playerOne.attacks = {
