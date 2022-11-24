@@ -8,11 +8,17 @@ export class Player extends Sprite {
     spriteSet,
     jumpHeight = 16,
     hasDoubleJump = false,
+    health = 1000,
+    healthBar,
+    name
   }) {
     super({ position, velocity, hasGravity, spriteSet });
     this.moving = { right: false, left: false };
     this.jumpHeight = jumpHeight;
     this.hasDoubleJump = hasDoubleJump;
+    this.health = health;
+    this.healthBar = healthBar;
+    this.name = name;
   }
 
   update() {
@@ -40,4 +46,18 @@ export class Player extends Sprite {
 
     this.playAnimation("jump", true);
   }
+
+takeDamage (damage) {
+  this.health -= damage;
+  this.healthBar.style.width = Math.floor(this.health/10) + '%';
+
+  if (this.health <= 0) {
+    console.log(this.enemy.name);
+  }
 }
+
+}
+
+
+
+

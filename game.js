@@ -32,6 +32,8 @@ const playerOne = new Player({
   },
   hasGravity: true,
   spriteSet: spriteSets.ronin,
+  healthBar: document.getElementById('playerOneHealth'),
+  name: 'Eskil',
 });
 
 playerOne.attacks = {
@@ -48,6 +50,8 @@ const playerTwo = new Player({
     y: 0,
   },
   hasGravity: true,
+  healthBar: document.getElementById('playerTwoHealth'),
+  name: 'Jonathan'
 });
 
 playerOne.enemy = playerTwo;

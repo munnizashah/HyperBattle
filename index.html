@@ -1,19 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hyper Battle</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
 
-<body>
-
-    <canvas></canvas>
+  <body>
+    <div style="position: relative; display: inline-block">
+      <div
+        style="
+          position: absolute;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          padding: 20px;
+        "
+      >
+        <!-- player one health -->
+        <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end ;">
+          <div style="background-color: yellow; height: 30px; width: 100%;"></div>
+          <div
+            id="playerOneHealth"
+            style="
+              position: absolute;
+              background: blue;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              width: 100%;
+            "
+          ></div>
+        </div>
+        <!-- timer -->
+        <div
+          style="
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+          "
+        ></div>
+        <!-- player two health -->
+        <div style="position: relative; height: 30px; width: 100%">
+          <div style="background-color: yellow; height: 30px"></div>
+          <div
+            id="playerTwoHealth"
+            style="
+              position: absolute;
+              background: blue;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+            "
+          ></div>
+        </div>
+        <div></div>
+      </div>
+      <canvas></canvas>
+    </div>
 
     <script src="game.js" type="module"></script>
-</body>
-
+  </body>
 </html>
