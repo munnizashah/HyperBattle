@@ -34,7 +34,6 @@ const playerOne = new Player({
   spriteSet: spriteSets.ronin,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
-  hasDoubleJump: true
 });
 
 playerOne.attacks = {
