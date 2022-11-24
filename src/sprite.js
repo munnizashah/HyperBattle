@@ -49,6 +49,17 @@ export class Sprite {
         }
     }
 
+    get isOnTheGround (){
+            if (this.position.y + this.height + this.velocity.y >= env.height) {
+
+                return true
+
+            } else {
+
+                return false
+            }
+    }
+
     playAnimation(spriteName, playOnce = false, callback = () => { }) {
         if (this.activeSprite) {
             if (this.activeSprite.constructor.name === spriteName) return;
