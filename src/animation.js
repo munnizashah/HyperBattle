@@ -28,7 +28,8 @@ spriteSets.ronin = {
     },
     runLeft: {
         source: '../assets/test-assets/Ronin/spr_RoninRunLeft_strip.png',
-        frames: 10
+        frames: 10,
+        framesHold: 12
     },
     jump: {
         source: '../assets/test-assets/Ronin/spr_RoninJump_strip.png',
