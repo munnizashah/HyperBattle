@@ -39,7 +39,8 @@ spriteSets.ronin = {
     attack: {
         source: '../assets/test-assets/Ronin/spr_RoninAttack_strip.png',
         frames: 25,
-        framesHold: 10
+        framesHold: 10,
+        offset: { x: -180, y: -100 }
     },
     hit: {
         source: '../assets/test-assets/Ronin/spr_RoninGetHit_strip.png',

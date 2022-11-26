@@ -12,7 +12,6 @@ export class Sprite {
         imageSrc,
         scale = 1,
         frames = 1,
-        framesHold = 17,
         offset = { x: 0, y: 0 },
 
     }) {
@@ -28,14 +27,16 @@ export class Sprite {
 
         if (spriteSet) {
             this.spriteSet = spriteSet;
-
-            this.isImage = true;
-
             this.image = new Image();
 
-            this.playAnimation(Object.keys(spriteSet)[0]);
+            this.playAnimation(this.spriteSet[Object.keys(spriteSet)[0]]);
 
             c.imageSmoothingEnabled = false; //otherwise it smooths the images when scaling
+
+
+
+            this.currentFrame = 0;
+            this.framesElapsed = 0;
 
         }
 
@@ -49,26 +50,26 @@ export class Sprite {
         }
     }
 
-    get isOnTheGround (){
-            if (this.position.y + this.height + this.velocity.y >= env.height) {
+    get isOnTheGround() {
+        if (this.position.y + this.height + this.velocity.y >= env.height) {
 
-                return true
+            return true
 
-            } else {
+        } else {
 
-                return false
-            }
+            return false
+        }
     }
 
-    playAnimation(spriteName, playOnce = false, callback = () => { }) {
+    playAnimation(sprite, playOnce = false, callback = () => { }) {
         if (this.activeSprite) {
-            if (this.activeSprite.constructor.name === spriteName) return;
+            if (this.activeSprite.source === sprite.source) return;
             this.activeSprite.callback(); //call previous animation callback
 
         }
 
 
-        this.activeSprite = this.spriteSet[spriteName];
+        this.activeSprite = sprite;
         this.image.src = this.activeSprite.source;
         this.activeSprite.playOnce = playOnce;
         this.activeSprite.callback = callback;
@@ -87,7 +88,7 @@ export class Sprite {
 
     draw() {
 
-        if (this.isImage) {
+        if (this.activeSprite) {
             c.drawImage(
                 this.image, //the image we want to draw
 
@@ -113,14 +114,14 @@ export class Sprite {
     update() {
         this.draw();
         this.framesElapsed++;
-        if (this.isImage) {
+        if (this.activeSprite) {
             if (this.framesElapsed % this.activeSprite.framesHold === 0) {
 
                 if (this.isLastFrame) {
                     this.currentFrame = 0;
 
                     if (this.activeSprite.playOnce) {
-                        this.playAnimation('idle')
+                        this.playAnimation(this.spriteSet.idle)
                     }
                 } else {
                     this.currentFrame++;

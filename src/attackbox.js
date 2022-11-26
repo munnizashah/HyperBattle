@@ -13,6 +13,7 @@ export class AttackBox extends Sprite {
         color = 'green',
         damage = 50,
         animationName = 'attack',
+        api
 
     }) {
         //Note that velocity IS NOT PASSED and is only applied when shooting
@@ -31,17 +32,44 @@ export class AttackBox extends Sprite {
         this.cooldown = cooldown;
         this.duration = duration;
 
+        this.api = api;
+        if (api) {
+            this.image = new Image();
 
+            this.isImage = true;
+
+        }
 
         if (env.displayAttackBoxes) {
             renderQueue.push(this);
         }
     }
 
+    get width() {
+        if (this.activeSprite) {
+            return this.image.width * this.activeSprite.scale;
+        }
+        return this._width
+    }
+
+    set width(width) {
+        this._width = width;
+    }
+
+    get height() {
+        if (this.activeSprite) {
+            return this.image.height * this.activeSprite.scale;
+        }
+        return this._height
+    }
+
+    set height(height) {
+        this._height = height;
+    }
 
     attack() {
 
-        this.player.playAnimation(this.animationName, true);
+        this.player.playAnimation(this.player.spriteSet[this.animationName], true);
 
         if (this.isOnCooldown) return;
 
@@ -56,17 +84,35 @@ export class AttackBox extends Sprite {
 
 
         if (this.isShooting) {
+            this.currentlyShooting = true;
             this.velocity = this.attackVelocity;
             this.renderIndex = renderQueue.push(this) - 1; //returns length array
 
             this.shootingTimeout = setTimeout(() => {
                 this.velocity = { x: 0, y: 0 };
-                renderQueue.splice(renderIndex, 1);
-                listenColliders.splice(listenIndex, 1);
+                renderQueue.splice(this.renderIndex, 1);
 
                 console.log('Attack missed')
 
             }, this.duration);
+
+            //if there's an api - fetch image
+            if (this.api) {
+                fetch(this.api)
+                    .then((response) => response.json())
+                    .then((data) => {
+
+                        this.image.src = data.url;
+
+                        this.playAnimation({
+                            source: data.url,
+                            offset: { x: 0, y: 0 },
+                            scale: .1,
+                            frames: 1
+                        });
+
+                    });
+            }
 
 
         } else { //normal / non-shooting attacks
@@ -89,9 +135,11 @@ export class AttackBox extends Sprite {
 
         //if shot lands
         if (this.isShooting && isColliding(this, this.player.enemy)) {
-
+            if (!this.currentlyShooting) return;
+            this.currentlyShooting = false;
             this.velocity = { x: 0, y: 0 };
             renderQueue.splice(this.renderIndex, 1);
+
 
             clearTimeout(this.shootingTimeout);
             this.player.enemy.takeDamage(this.damage)
@@ -103,6 +151,7 @@ export class AttackBox extends Sprite {
     }
 
     draw() {
+        // if (this.image.src) debugger;
         super.draw(); //calling draw function of parent class (Sprite)
 
         if (env.displayAttackBoxes) {

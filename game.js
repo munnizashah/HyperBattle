@@ -37,7 +37,7 @@ const playerOne = new Player({
 });
 
 playerOne.attacks = {
-  first: new AttackBox(playerOne, { isShooting: true }),
+  first: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes' }),
 };
 
 const playerTwo = new Player({
@@ -73,7 +73,6 @@ animate();
 
 // eventlistners
 function eventInput(event, isKeydown) {
-  console.log(event.key);
   switch (event.key) {
     //Player 1
     case "d":
@@ -83,12 +82,12 @@ function eventInput(event, isKeydown) {
       playerOne.moving.left = isKeydown;
       break;
     case "w":
-      if (isKeydown) {
-        playerOne.playerJump();
-      }
+      if (isKeydown) playerOne.playerJump();
+
       break;
     case " ":
-      playerOne.attacks.first.attack();
+      event.preventDefault();
+      if (isKeydown) playerOne.attacks.first.attack();
       break;
     //Player 2
     case "ArrowRight":
@@ -98,17 +97,16 @@ function eventInput(event, isKeydown) {
       playerTwo.moving.left = isKeydown;
       break;
     case "ArrowUp":
-      if (isKeydown) {
-        playerTwo.playerJump();
-      }
+      if (isKeydown) playerTwo.playerJump();
       break;
     case "ArrowDown":
-      playerTwo.attack.first();
+      if (isKeydown) playerTwo.attack.first();
       break;
   }
 }
 
 window.addEventListener("keydown", (event) => {
+  console.log(event.key);
   eventInput(event, true);
 });
 
