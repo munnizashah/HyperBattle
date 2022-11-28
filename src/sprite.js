@@ -4,9 +4,9 @@ export class Sprite {
     constructor({
         position = { x: 0, y: 0 }, /* when you set a parameter to a value this means it's the default value (if you give another value it changes)*/
         velocity = { x: 0, y: 0 },
-        width = 50,
+        width = 70,
         height = 150,
-        color = 'red',
+        color = 'rgba(255, 255, 255, 0.5)',
         hasGravity = false,
         spriteSet,
         imageSrc,
@@ -63,6 +63,11 @@ export class Sprite {
 
     playAnimation(sprite, playOnce = false, callback = () => { }) {
         if (this.activeSprite) {
+            if (!this.isLastFrame && this.activeSprite.playOnce && sprite === this.spriteSet['idle' + this.lastDirection]) return;
+
+        }
+
+        if (this.activeSprite) {
             if (this.activeSprite.source === sprite.source) return;
             this.activeSprite.callback(); //call previous animation callback
 
@@ -105,7 +110,8 @@ export class Sprite {
                 this.image.height * this.scale                                                   //desired height
             );
 
-        } else {
+        }
+        if (env.displayAttackBoxes) {
             c.fillStyle = this.color;
             c.fillRect(this.position.x, this.position.y, this.width, this.height);
         }
@@ -118,11 +124,12 @@ export class Sprite {
             if (this.framesElapsed % this.activeSprite.framesHold === 0) {
 
                 if (this.isLastFrame) {
-                    this.currentFrame = 0;
 
                     if (this.activeSprite.playOnce) {
-                        this.playAnimation(this.spriteSet['idle' + this.firstCapital(this.lastDirection)])
+                        this.playAnimation(this.spriteSet['idle' + this.lastDirection])
                     }
+                    this.currentFrame = 0;
+
                 } else {
                     this.currentFrame++;
                 }

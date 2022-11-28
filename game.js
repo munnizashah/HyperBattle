@@ -11,7 +11,7 @@ export const env = {
   width: 1024,
   height: 576,
   gravity: 0.6,
-  displayAttackBoxes: false,
+  displayAttackBoxes: true,
 };
 
 export const renderQueue = [];
@@ -23,7 +23,7 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 const playerOne = new Player({
   position: {
-    x: 0,
+    x: 150,
     y: 0,
   },
   velocity: {
@@ -31,10 +31,10 @@ const playerOne = new Player({
     y: 0,
   },
   hasGravity: true,
-  spriteSet: spriteSets.ronin,
+  spriteSet: spriteSets.eskil,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
-  lastDirection: 'Left'
+  lastDirection: 'Right'
 
 });
 
@@ -44,7 +44,7 @@ playerOne.attacks = {
 
 const playerTwo = new Player({
   position: {
-    x: 400,
+    x: 875,
     y: 100,
   },
   velocity: {
@@ -52,9 +52,10 @@ const playerTwo = new Player({
     y: 0,
   },
   hasGravity: true,
+  spriteSet: spriteSets.jonathan,
   healthBar: document.getElementById('playerTwoHealth'),
   name: 'Jonathan',
-  lastDirection: 'Right'
+  lastDirection: 'Left'
 });
 
 playerOne.enemy = playerTwo;

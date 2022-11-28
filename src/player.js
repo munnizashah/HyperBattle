@@ -29,7 +29,7 @@ export class Player extends Sprite {
     if (this.moving.right === this.moving.left) {
       this.velocity.x = 0;
 
-      if (!this.isAttacking && this.spriteSet && this.isOnTheGround) {
+      if (this.isOnTheGround) {
 
         this.playAnimation(this.spriteSet['idle' + this.lastDirection]);
 
@@ -46,6 +46,13 @@ export class Player extends Sprite {
       this.velocity.x = 5;
       this.lastDirection = 'Right';
       if (this.spriteSet) this.playAnimation(this.spriteSet['run' + this.lastDirection]);
+
+    }
+
+    if (!this.isOnTheGround && this.velocity.y > 0) {
+
+      if (this.spriteSet) this.playAnimation(this.spriteSet['fall' + this.lastDirection]);
+
 
     }
   }
@@ -67,6 +74,7 @@ export class Player extends Sprite {
   takeDamage(damage) {
     this.health -= damage;
     this.healthBar.style.width = Math.floor(this.health / 10) + '%';
+    this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
 
     if (this.health <= 0) {
       console.log(this.enemy.name);
