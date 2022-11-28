@@ -83,7 +83,6 @@ function animate() {
   });
 }
 
-animate();
 
 
 
@@ -142,12 +141,15 @@ window.addEventListener("keyup", (event) => {
   eventInput(event, false);
 });
 
-function startGame() {
+let startButton = document.getElementById('startButton')
+startButton.onclick = function startGame() {
+  
   let theStartButton = document.getElementById('startButton');
   let gameCanvas = document.getElementById('canvas');
   gameCanvas.style.display = 'block';
   theStartButton.style.display = 'none';
 
+animate (); 
 }
 
 
