@@ -28,15 +28,24 @@ export class Player extends Sprite {
     super.update();
     if (this.moving.right === this.moving.left) {
       this.velocity.x = 0;
-      // this.playAnimation('idle' + this.lastDirection);
+
+      if (!this.isAttacking && this.spriteSet) {
+
+        this.playAnimation(this.spriteSet['idle' + this.lastDirection]);
+
+      }
+
     }
     if (this.moving.left) {
       this.velocity.x = -5;
-      this.lastDirection = 'left';
+      this.lastDirection = 'Left';
+      if (this.spriteSet) this.playAnimation(this.spriteSet['run' + this.lastDirection]);
+
     }
     if (this.moving.right) {
       this.velocity.x = 5;
-      this.lastDirection = 'right';
+      this.lastDirection = 'Right';
+      if (this.spriteSet) this.playAnimation(this.spriteSet['run' + this.lastDirection]);
 
     }
   }
@@ -51,7 +60,7 @@ export class Player extends Sprite {
       return;
     }
 
-    this.playAnimation(this.spriteSet['jump' + this.firstCapital(this.lastDirection)]);
+    this.playAnimation(this.spriteSet['jump' + this.lastDirection], true);
   }
 
   takeDamage(damage) {
@@ -63,12 +72,6 @@ export class Player extends Sprite {
     }
   }
 
-  firstCapital(string) {
-    let first = string[0].toUpperCase();
-    let rest = string.slice(1)
-
-    return first + rest;
-  }
 
 }
 

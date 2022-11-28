@@ -121,7 +121,7 @@ export class Sprite {
                     this.currentFrame = 0;
 
                     if (this.activeSprite.playOnce) {
-                        this.playAnimation(this.spriteSet.idle)
+                        this.playAnimation(this.spriteSet['idle' + this.firstCapital(this.lastDirection)])
                     }
                 } else {
                     this.currentFrame++;
@@ -145,5 +145,13 @@ export class Sprite {
 
 
     }
+
+    firstCapital(string) {
+        let first = string[0].toUpperCase();
+        let rest = string.slice(1)
+
+        return first + rest;
+    }
+
 
 }

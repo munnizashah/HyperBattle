@@ -34,12 +34,12 @@ const playerOne = new Player({
   spriteSet: spriteSets.ronin,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
-  lastDirection: 'left'
+  lastDirection: 'Left'
 
 });
 
 playerOne.attacks = {
-  first: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes' }),
+  first: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
 };
 
 const playerTwo = new Player({
@@ -54,7 +54,7 @@ const playerTwo = new Player({
   hasGravity: true,
   healthBar: document.getElementById('playerTwoHealth'),
   name: 'Jonathan',
-  lastDirection: 'right'
+  lastDirection: 'Right'
 });
 
 playerOne.enemy = playerTwo;

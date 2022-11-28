@@ -69,9 +69,13 @@ export class AttackBox extends Sprite {
 
     attack() {
 
-        this.player.playAnimation(this.player.spriteSet[this.animationName], true);
+        if (this.isOnCooldown || this.currentlyShooting) return;
 
-        if (this.isOnCooldown) return;
+        this.player.playAnimation(this.player.spriteSet[this.animationName + this.firstCapital(this.player.lastDirection)], true, () => {
+            this.player.isAttacking = false;
+        });
+
+        this.player.isAttacking = true;
 
         this.isOnCooldown = true;
 
