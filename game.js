@@ -11,7 +11,7 @@ export const env = {
   width: 1024,
   height: 576,
   gravity: 0.6,
-  displayAttackBoxes: false,
+  displayAttackBoxes: true,
 };
 
 export const renderQueue = [];
@@ -23,7 +23,7 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 const playerOne = new Player({
   position: {
-    x: 0,
+    x: 150,
     y: 0,
   },
   velocity: {
@@ -31,18 +31,18 @@ const playerOne = new Player({
     y: 0,
   },
   hasGravity: true,
-  spriteSet: spriteSets.ronin,
+  spriteSet: spriteSets.eskil,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
+  lastDirection: 'Right'
+
 });
 
-playerOne.attacks = {
-  first: new AttackBox(playerOne, { isShooting: true }),
-};
+
 
 const playerTwo = new Player({
   position: {
-    x: 400,
+    x: 875,
     y: 100,
   },
   velocity: {
@@ -50,9 +50,13 @@ const playerTwo = new Player({
     y: 0,
   },
   hasGravity: true,
+  spriteSet: spriteSets.jonathan,
   healthBar: document.getElementById('playerTwoHealth'),
-  name: 'Jonathan'
+  name: 'Jonathan',
+  lastDirection: 'Left'
 });
+
+
 
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
@@ -60,6 +64,16 @@ playerTwo.enemy = playerOne;
 const background = new Sprite({ spriteSet: spriteSets.background });
 
 renderQueue.push(background, playerOne, playerTwo);
+
+playerOne.attacks = {
+  shoot: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
+  punch: new AttackBox(playerOne, {})
+};
+
+playerTwo.attacks = {
+  shoot: new AttackBox(playerTwo, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
+  punch: new AttackBox(playerTwo, {})
+};
 
 function animate() {
   window.requestAnimationFrame(animate); // this creates an infinite loop.
@@ -75,7 +89,6 @@ animate();
 
 // eventlistners
 function eventInput(event, isKeydown) {
-  console.log(event.key);
   switch (event.key) {
     //Player 1
     case "d":
@@ -85,32 +98,43 @@ function eventInput(event, isKeydown) {
       playerOne.moving.left = isKeydown;
       break;
     case "w":
-      if (isKeydown) {
-        playerOne.playerJump();
-      }
+      if (isKeydown) playerOne.jump();
+
       break;
-    case " ":
-      playerOne.attacks.first.attack();
+    case "s":
+      event.preventDefault();
+      if (isKeydown) playerOne.attacks.punch.attack();
+      break;
+    case "f":
+      event.preventDefault();
+      if (isKeydown) playerOne.attacks.shoot.attack();
       break;
     //Player 2
     case "ArrowRight":
+      event.preventDefault();
       playerTwo.moving.right = isKeydown;
       break;
     case "ArrowLeft":
+      event.preventDefault();
       playerTwo.moving.left = isKeydown;
       break;
     case "ArrowUp":
-      if (isKeydown) {
-        playerTwo.playerJump();
-      }
+      event.preventDefault();
+      if (isKeydown) playerTwo.jump();
       break;
     case "ArrowDown":
-      playerTwo.attack.first();
+      event.preventDefault();
+      if (isKeydown) playerTwo.attacks.punch.attack();
+      break;
+    case "Control":
+      event.preventDefault();
+      if (isKeydown) playerTwo.attacks.shoot.attack();
       break;
   }
 }
 
 window.addEventListener("keydown", (event) => {
+  console.log(event.key);
   eventInput(event, true);
 });
 
