@@ -22,6 +22,7 @@ export class Player extends Sprite {
     this.name = name;
 
     this.lastDirection = lastDirection;
+
   }
 
   update() {
@@ -71,19 +72,23 @@ export class Player extends Sprite {
     this.playAnimation(this.spriteSet['jump' + this.lastDirection], true);
   }
 
-  takeDamage(damage) {
-    this.health -= damage;
-    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
-    this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
+ 
+ takeDamage (damage) {
+  this.health -= damage;
+  this.healthBar.style.width = Math.floor(this.health/10) + '%';
+  this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
 
-    if (this.health <= 0) {
-      console.log(this.enemy.name);
-
-    }
+  if (this.health <= 0) {
+    let winner = document.getElementById('winnerText');
+    winner.innerText = (`${this.enemy.name} WON!`)
+    winner.style.display="block"
   }
 
+  }
 
 }
+
+
 
 
 
