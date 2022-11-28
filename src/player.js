@@ -51,7 +51,7 @@ export class Player extends Sprite {
       return;
     }
 
-    this.playAnimation(this.spriteSet.jump, true);
+    this.playAnimation(this.spriteSet['jump' + this.firstCapital(this.lastDirection)]);
   }
 
   takeDamage(damage) {
@@ -61,6 +61,13 @@ export class Player extends Sprite {
     if (this.health <= 0) {
       console.log(this.enemy.name);
     }
+  }
+
+  firstCapital(string) {
+    let first = string[0].toUpperCase();
+    let rest = string.slice(1)
+
+    return first + rest;
   }
 
 }

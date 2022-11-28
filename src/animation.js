@@ -16,8 +16,13 @@ spriteSets.background = {
 }
 
 spriteSets.ronin = {
-    idle: {
+    idleRight: {
         source: '../assets/test-assets/Ronin/spr_RoninIdle_strip.png',
+        frames: 8,
+        framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
+    },
+    idleLeft: {
+        source: '../assets/test-assets/Ronin/spr_RoninIdleLeft_strip.png',
         frames: 8,
         framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
     },
@@ -31,13 +36,24 @@ spriteSets.ronin = {
         frames: 10,
         framesHold: 12
     },
-    jump: {
+    jumpRight: {
         source: '../assets/test-assets/Ronin/spr_RoninJump_strip.png',
         frames: 15,
         framesHold: 10
     },
-    attack: {
+    jumpLeft: {
+        source: '../assets/test-assets/Ronin/spr_RoninJumpLeft_strip.png',
+        frames: 15,
+        framesHold: 10
+    },
+    attackRight: {
         source: '../assets/test-assets/Ronin/spr_RoninAttack_strip.png',
+        frames: 25,
+        framesHold: 10,
+        offset: { x: -180, y: -100 }
+    },
+    attackLeft: {
+        source: '../assets/test-assets/Ronin/spr_RoninAttackLeft_strip.png',
         frames: 25,
         framesHold: 10,
         offset: { x: -180, y: -100 }
@@ -53,5 +69,3 @@ spriteSets.ronin = {
     }
 
 }
-
-
