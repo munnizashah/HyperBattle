@@ -18,7 +18,7 @@ export class Player extends Sprite {
     this.hasDoubleJump = hasDoubleJump;
     this.health = health;
     this.healthBar = healthBar;
-    this.name = name;
+    this.name = name
   }
 
   update() {
@@ -46,17 +46,22 @@ export class Player extends Sprite {
 
     this.playAnimation("jump", true);
   }
-
-takeDamage (damage) {
+ 
+ takeDamage (damage) {
   this.health -= damage;
   this.healthBar.style.width = Math.floor(this.health/10) + '%';
 
   if (this.health <= 0) {
-    console.log(this.enemy.name);
+    let winner = document.getElementById('winnerText');
+    winner.innerText = (`${this.enemy.name} WON!`)
+    winner.style.display="block"
   }
-}
+
+  }
 
 }
+
+
 
 
 
