@@ -44,17 +44,17 @@ export class Player extends Sprite {
       return;
     }
 
-    this.playAnimation("jump", true);
+    this.playAnimation(this.spriteSet.jump, true);
   }
 
-takeDamage (damage) {
-  this.health -= damage;
-  this.healthBar.style.width = Math.floor(this.health/10) + '%';
+  takeDamage(damage) {
+    this.health -= damage;
+    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
 
-  if (this.health <= 0) {
-    console.log(this.enemy.name);
+    if (this.health <= 0) {
+      console.log(this.enemy.name);
+    }
   }
-}
 
 }
 
