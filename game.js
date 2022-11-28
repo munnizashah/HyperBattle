@@ -54,6 +54,11 @@ const playerTwo = new Player({
   name: 'Jonathan'
 });
 
+playerTwo.attacks = {
+  first: new AttackBox(playerTwo, { isShooting: true }),
+};
+
+
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
@@ -67,45 +72,74 @@ function animate() {
   renderQueue.forEach((element) => {
     element.update();
   });
+
+  
 }
 
 animate();
 
+playerOne.lastDirection = 'right';
+playerTwo.lastDirection = 'left';
+
 // eventlistners
 function eventInput(event, isKeydown) {
-  console.log(event.key);
+  console.log(event.key);  
+  
   switch (event.key) {
     //Player 1
     case "d":
       playerOne.moving.right = isKeydown;
+      playerOne.playAnimation('runRight');
+      playerOne.lastDirection = 'right';
       break;
     case "a":
-      playerOne.moving.left = isKeydown;
+      playerOne.moving.left = isKeydown; 
+      playerOne.playAnimation('runLeft');     
+      playerOne.lastDirection = 'left';
       break;
     case "w":
-      if (isKeydown) {
+      // playerOne.playerJump();
+      if(isKeydown){
+      if( playerOne.lastDirection === 'right'){       
         playerOne.playerJump();
-      }
+        playerOne.playAnimation('jumpRight');
+    }else if(playerOne.lastDirection === 'left'){
+        playerOne.playAnimation('jumpLeft');
+        playerOne.playerJump();
+    } 
+  }
       break;
     case " ":
-      playerOne.attacks.first.attack();
+      // playerOne.attacks.first.attack();
+      if(playerOne.lastDirection === 'right'){
+        playerOne.playAnimation('attackRight');
+        playerOne.attacks.first.attack();
+    }else if(playerOne.lastDirection === 'left'){
+        playerOne.playAnimation('attackLeft');
+        playerOne.attacks.first.attack();
+    } 
+
       break;
     //Player 2
     case "ArrowRight":
       playerTwo.moving.right = isKeydown;
+      playerTwo.playAnimation('runRight');
+      playerTwo.lastDirection = 'right';
       break;
     case "ArrowLeft":
-      playerTwo.moving.left = isKeydown;
+      playerTwo.moving.left = isKeydown;      
+      playerTwo.playAnimation('runLeft');
+      playerTwo.lastDirection = 'left';
       break;
     case "ArrowUp":
-      if (isKeydown) {
-        playerTwo.playerJump();
-      }
+      playerTwo.playerJump();
       break;
     case "ArrowDown":
-      playerTwo.attack.first();
+      playerTwo.attacks.first.attack();
       break;
+
   }
+
 }
 
 window.addEventListener("keydown", (event) => {
@@ -114,4 +148,8 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   eventInput(event, false);
+  playerOne.isIdle();
+  playerTwo.isIdle();
 });
+
+

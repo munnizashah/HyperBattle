@@ -10,16 +10,19 @@ export class Player extends Sprite {
     hasDoubleJump = false,
     health = 1000,
     healthBar,
-    name
+    name,
+    lastDirection
   }) {
-    super({ position, velocity, hasGravity, spriteSet });
-    this.moving = { right: false, left: false };
+    super({ position, velocity, hasGravity, spriteSet, lastDirection});
+    this.moving = { right: false, left: false };//what's that mean?
     this.jumpHeight = jumpHeight;
     this.hasDoubleJump = hasDoubleJump;
     this.health = health;
     this.healthBar = healthBar;
     this.name = name;
+    
   }
+  
 
   update() {
     super.update();
@@ -27,25 +30,34 @@ export class Player extends Sprite {
       this.velocity.x = 0;
     }
     if (this.moving.left) {
-      this.velocity.x = -5;
+      this.velocity.x = -5;      
     }
     if (this.moving.right) {
       this.velocity.x = 5;
     }
   }
+
   playerJump() {
     if (this.isOnTheGround) {
       this.hasUsedDoubleJump = false;
       this.velocity.y = -this.jumpHeight;
-    } else if (this.hasDoubleJump && !this.hasUsedDoubleJump) {
+    } else if (this.hasDoubleJump && !this.hasUsedDoubleJump && this.lastDirection === 'left') {
+      this.velocity.y = -this.jumpHeight * 0.8;
+      this.hasUsedDoubleJump = true;
+    } else if(this.hasDoubleJump && !this.hasUsedDoubleJump && this.lastDirection === 'right') {
       this.velocity.y = -this.jumpHeight * 0.8;
       this.hasUsedDoubleJump = true;
     } else {
       return;
     }
-
-    this.playAnimation("jump", true);
   }
+
+  isIdle() {
+      if (this.lastDirection === 'left') 
+      this.playAnimation('idleLeft')
+      else this.playAnimation('idleRight')
+      }
+  
 
 takeDamage (damage) {
   this.health -= damage;

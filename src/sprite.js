@@ -14,6 +14,7 @@ export class Sprite {
         frames = 1,
         framesHold = 17,
         offset = { x: 0, y: 0 },
+        lastDirection
 
     }) {
 
@@ -24,6 +25,7 @@ export class Sprite {
         this.color = color;
         this.width = width;
         this.height = height;
+        this.lastDirection = lastDirection;
 
 
         if (spriteSet) {
@@ -61,6 +63,16 @@ export class Sprite {
     }
 
     playAnimation(spriteName, playOnce = false, callback = () => { }) {
+        // if ((this.image === this.spriteSet.attackLeft.image 
+        // && 
+        // this.isLastFrame === false) || 
+        // (this.image === this.spriteSet.attackLeft.image 
+        // && 
+        // this.isLastFrame === false)) return;
+
+
+
+
         if (this.activeSprite) {
             if (this.activeSprite.constructor.name === spriteName) return;
             this.activeSprite.callback(); //call previous animation callback
@@ -118,7 +130,6 @@ export class Sprite {
 
                 if (this.isLastFrame) {
                     this.currentFrame = 0;
-
                     if (this.activeSprite.playOnce) {
                         this.playAnimation('idle')
                     }

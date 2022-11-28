@@ -13,10 +13,11 @@ export class AttackBox extends Sprite {
         color = 'green',
         damage = 50,
         animationName = 'attack',
+        lastDirection
 
     }) {
         //Note that velocity IS NOT PASSED and is only applied when shooting
-        super({ position, color }); //calling constructor function of parent class (Sprite)
+        super({ position, color, lastDirection }); //calling constructor function of parent class (Sprite)
 
         this.player = player; //Which player does the attack belong to?
 
@@ -31,8 +32,8 @@ export class AttackBox extends Sprite {
         this.cooldown = cooldown;
         this.duration = duration;
 
-
-
+       
+        
         if (env.displayAttackBoxes) {
             renderQueue.push(this);
         }
@@ -41,7 +42,13 @@ export class AttackBox extends Sprite {
 
     attack() {
 
-        this.player.playAnimation(this.animationName, true);
+        // this.player.playAnimation(this.animationName, true);
+    //     if(this.lastDirection === 'right'){
+    //         this.playAnimation('attackRight');
+    //     }else if(this.lastDirection === 'left'){
+    //         this.playAnimation('attackLeft');
+    //    } 
+       
 
         if (this.isOnCooldown) return;
 
@@ -79,13 +86,18 @@ export class AttackBox extends Sprite {
                 console.log('Attack missed')
             }
         }
-
-
-
     }
 
     update() {
         super.update();
+
+        // if (this.lastDirection === 'right') {
+        //     this.attackBox.position.x = this.position.x;
+        //     this.attackBox.position.y = this.position.y;
+        // } else if (this.lastDirection === 'left') {
+        //     this.attackBox.position.x = this.position.x - 65 ;
+        //     this.attackBox.position.y = this.position.y;
+        // }  
 
         //if shot lands
         if (this.isShooting && isColliding(this, this.player.enemy)) {
@@ -104,6 +116,7 @@ export class AttackBox extends Sprite {
 
     draw() {
         super.draw(); //calling draw function of parent class (Sprite)
+
 
         if (env.displayAttackBoxes) {
             c.fillStyle = this.color;
@@ -133,12 +146,17 @@ export function isColliding(rect1, rect2) {
     }
 
     if (
-        rect1.sides.left < rect2.sides.right &&
-        rect1.sides.right > rect2.sides.left &&
-        rect1.sides.top < rect2.sides.bottom &&
-        rect1.sides.bottom > rect2.sides.top
+    (rect1.sides.left < rect2.sides.right &&
+    rect1.sides.right > rect2.sides.left &&
+    rect1.sides.top < rect2.sides.bottom &&
+    rect1.sides.bottom > rect2.sides.top) 
+    || (rect1.sides.left > rect2.sides.left&&
+    rect1.sides.left > rect2.sides.right &&
+    rect1.sides.top < rect2.sides.bottom &&
+    rect1.sides.bottom > rect2.sides.top)
     ) {
         return true;
     }
     return false;
 }
+
