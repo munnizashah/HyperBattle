@@ -3,7 +3,7 @@ import { Sprite } from './sprite.js'
 
 export class AttackBox extends Sprite {
     constructor(player, {
-        position = player.position,
+        position = { ...player.position },
         velocity = { x: 3, y: 0 },
         isShooting,
         duration = 3000, //duration only applies for shooting attacks
@@ -12,7 +12,6 @@ export class AttackBox extends Sprite {
         height = 60,
         color = 'green',
         damage = 50,
-        animationName = 'attack',
         api
 
     }) {
@@ -27,15 +26,20 @@ export class AttackBox extends Sprite {
         this.height = height;
 
         this.damage = damage;
-        this.animationName = animationName;
         this.isShooting = isShooting;
+
+        if (this.isShooting) {
+            this.animationName = 'shotAttack';
+        } else {
+            this.animationName = 'attack'
+        }
+
         this.cooldown = cooldown;
         this.duration = duration;
 
         this.api = api;
         if (api) {
             this.image = new Image();
-
             this.isImage = true;
 
         }
@@ -89,6 +93,12 @@ export class AttackBox extends Sprite {
 
 
         this.position = { ...this.player.position }; //Copy object without syncing them
+
+
+        if (this.player.lastDirection === 'Left') {
+            this.position.x = this.position.x - this.width / 2;
+        }
+
 
 
         if (this.isShooting) {
@@ -175,7 +185,10 @@ export class AttackBox extends Sprite {
     draw() {
         // if (this.image.src) debugger;
         super.draw(); //calling draw function of parent class (Sprite)
-
+        if (env.displayAttackBoxes) {
+            c.fillStyle = this.color;
+            c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        }
     }
 }
 

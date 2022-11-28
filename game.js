@@ -38,9 +38,7 @@ const playerOne = new Player({
 
 });
 
-playerOne.attacks = {
-  first: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
-};
+
 
 const playerTwo = new Player({
   position: {
@@ -58,12 +56,24 @@ const playerTwo = new Player({
   lastDirection: 'Left'
 });
 
+
+
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
 const background = new Sprite({ spriteSet: spriteSets.background });
 
 renderQueue.push(background, playerOne, playerTwo);
+
+playerOne.attacks = {
+  shoot: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
+  punch: new AttackBox(playerOne, {})
+};
+
+playerTwo.attacks = {
+  shoot: new AttackBox(playerTwo, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
+  punch: new AttackBox(playerTwo, {})
+};
 
 function animate() {
   window.requestAnimationFrame(animate); // this creates an infinite loop.
@@ -89,22 +99,34 @@ function eventInput(event, isKeydown) {
       if (isKeydown) playerOne.jump();
 
       break;
-    case " ":
+    case "s":
       event.preventDefault();
-      if (isKeydown) playerOne.attacks.first.attack();
+      if (isKeydown) playerOne.attacks.punch.attack();
+      break;
+    case "f":
+      event.preventDefault();
+      if (isKeydown) playerOne.attacks.shoot.attack();
       break;
     //Player 2
     case "ArrowRight":
+      event.preventDefault();
       playerTwo.moving.right = isKeydown;
       break;
     case "ArrowLeft":
+      event.preventDefault();
       playerTwo.moving.left = isKeydown;
       break;
     case "ArrowUp":
+      event.preventDefault();
       if (isKeydown) playerTwo.jump();
       break;
     case "ArrowDown":
-      if (isKeydown) playerTwo.attack.first();
+      event.preventDefault();
+      if (isKeydown) playerTwo.attacks.punch.attack();
+      break;
+    case "Control":
+      event.preventDefault();
+      if (isKeydown) playerTwo.attacks.shoot.attack();
       break;
   }
 }

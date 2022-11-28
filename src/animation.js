@@ -74,58 +74,73 @@ spriteSets.ronin = {
 
 spriteSets.eskil = {
     idleRight: {
-        source: '../assets/characters/Eskil/EskilIdle.png',
+        source: '../assets/characters/Eskil/EskilIdleRight.png',
         frames: 4,
         framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
     },
     idleLeft: {
-        source: '../assets/characters/Eskil/EskilIdle.png',
+        source: '../assets/characters/Eskil/EskilIdleLeft.png',
         frames: 4,
         framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
     },
     runRight: {
-        source: '../assets/characters/Eskil/EskilRun.png',
+        source: '../assets/characters/Eskil/EskilRunRight.png',
         frames: 8,
         framesHold: 12
     },
     runLeft: {
-        source: '../assets/characters/Eskil/EskilRun.png',
+        source: '../assets/characters/Eskil/EskilRunLeft.png',
         frames: 8,
         framesHold: 12
     },
     jumpRight: {
-        source: '../assets/characters/Eskil/EskilJump.png',
+        source: '../assets/characters/Eskil/EskilJumpRight.png',
         frames: 2,
         framesHold: 10
     },
     jumpLeft: {
-        source: '../assets/characters/Eskil/EskilJump.png',
-        frames: 2,
-        framesHold: 10
-    },
-    fallLeft: {
-        source: '../assets/characters/Eskil/EskilFall.png',
+        source: '../assets/characters/Eskil/EskilJumpLeft.png',
         frames: 2,
         framesHold: 10
     },
     fallRight: {
-        source: '../assets/characters/Eskil/EskilFall.png',
+        source: '../assets/characters/Eskil/EskilFallRight.png',
+        frames: 2,
+        framesHold: 10
+    },
+    fallLeft: {
+        source: '../assets/characters/Eskil/EskilFallLeft.png',
         frames: 2,
         framesHold: 10
     },
     attackRight: {
-        source: '../assets/characters/Eskil/EskilAttack1.png',
+        source: '../assets/characters/Eskil/EskilAttack1Right.png',
         frames: 4,
         framesHold: 10,
     },
     attackLeft: {
-        source: '../assets/characters/Eskil/EskilAttack1.png',
+        source: '../assets/characters/Eskil/EskilAttack1Left.png',
         frames: 4,
         framesHold: 10,
     },
-    hit: {
-        source: '../assets/characters/Eskil/EskilTakeHit.png',
-        frames: 7,
+    shotAttackRight: {
+        source: '../assets/characters/Eskil/EskilAttack2Right.png',
+        frames: 4,
+        framesHold: 10,
+    },
+    shotAttackLeft: {
+        source: '../assets/characters/Eskil/EskilAttack2Left.png',
+        frames: 4,
+        framesHold: 10,
+    },
+    hitRight: {
+        source: '../assets/characters/Eskil/EskilTakeHitRight.png',
+        frames: 4,
+        framesHold: 10
+    },
+    hitLeft: {
+        source: '../assets/characters/Eskil/EskilTakeHitLeft.png',
+        frames: 4,
         framesHold: 10
     },
     options: {
@@ -136,66 +151,77 @@ spriteSets.eskil = {
 }
 
 
+
 spriteSets.jonathan = {
     idleRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanIdle.png',
+        source: '../assets/characters/jonathan/jonathanIdleRight.png',
         frames: 4,
         framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
     },
     idleLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanIdleF.png',
+        source: '../assets/characters/jonathan/jonathanIdleLeft.png',
         frames: 4,
         framesHold: 17, //how many actual frames (FPS) between each frame of the sprite
     },
     runRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanRun.png',
+        source: '../assets/characters/jonathan/jonathanRunRight.png',
         frames: 8,
         framesHold: 12
     },
     runLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanRunF.png',
+        source: '../assets/characters/jonathan/jonathanRunLeft.png',
         frames: 8,
         framesHold: 12
     },
     jumpRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanJump.png',
+        source: '../assets/characters/jonathan/jonathanJumpRight.png',
         frames: 2,
         framesHold: 10
     },
     jumpLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanJumpF.png',
-        frames: 2,
-        framesHold: 10
-    },
-    fallLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanFallF.png',
+        source: '../assets/characters/jonathan/jonathanJumpLeft.png',
         frames: 2,
         framesHold: 10
     },
     fallRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanFall.png',
+        source: '../assets/characters/jonathan/jonathanFallRight.png',
         frames: 2,
         framesHold: 10
     },
+    fallLeft: {
+        source: '../assets/characters/jonathan/jonathanFallLeft.png',
+        frames: 2,
+        framesHold: 10
+    },
+    shotAttackRight: {
+        source: '../assets/characters/jonathan/jonathanAttack1Right.png',
+        frames: 4,
+        framesHold: 10,
+    },
+    shotAttackLeft: {
+        source: '../assets/characters/jonathan/jonathanAttack1Left.png',
+        frames: 4,
+        framesHold: 10,
+    },
     attackRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanAttack1.png',
+        source: '../assets/characters/jonathan/jonathanAttack2Right.png',
         frames: 4,
         framesHold: 10,
     },
     attackLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanAttack1F.png',
+        source: '../assets/characters/jonathan/jonathanAttack2Left.png',
         frames: 4,
         framesHold: 10,
     },
     hitRight: {
-        source: '../assets/characters/Jonathan/SpriteSheet/jonathanTakeHit.png',
+        source: '../assets/characters/jonathan/jonathanTakeHitRight.png',
         frames: 4,
-        framesHold: 5
+        framesHold: 10
     },
     hitLeft: {
-        source: '../assets/characters/Jonathan/SpriteSheetFlipped/jonathanTakeHitF.png',
+        source: '../assets/characters/jonathan/jonathanTakeHitLeft.png',
         frames: 4,
-        framesHold: 5
+        framesHold: 10
     },
     options: {
         scale: 4,
