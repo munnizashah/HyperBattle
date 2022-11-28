@@ -125,7 +125,7 @@ startButton.onclick = function startGame() {
   gameCanvas.style.display = 'block';
   theStartButton.style.display = 'none';
 
-animate ();
+animate (); 
 }
 
 

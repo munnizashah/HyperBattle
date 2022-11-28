@@ -54,7 +54,7 @@ export class Player extends Sprite {
   if (this.health <= 0) {
     let winner = document.getElementById('winnerText');
     winner.innerText = (`${this.enemy.name} WON!`)
-    winner.style.display="block"
+    winner.style.display="block" 
   }
 
   }
