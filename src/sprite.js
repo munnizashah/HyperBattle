@@ -8,12 +8,7 @@ export class Sprite {
         height = 150,
         color = 'rgba(255, 255, 255, 0.5)',
         hasGravity = false,
-        spriteSet,
-        imageSrc,
-        scale = 1,
-        frames = 1,
-        offset = { x: 0, y: 0 },
-
+        spriteSet
     }) {
 
         this.position = position;
@@ -63,7 +58,7 @@ export class Sprite {
 
     playAnimation(sprite, playOnce = false, callback = () => { }) {
         if (this.activeSprite) {
-            if (!this.isLastFrame && this.activeSprite.playOnce && sprite === this.spriteSet['idle' + this.lastDirection]) return;
+            if (!this.isLastFrame && this.activeSprite.playOnce/*  && sprite === this.spriteSet['idle' + this.lastDirection] */) return;
 
         }
 

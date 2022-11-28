@@ -3,7 +3,6 @@ import { AttackBox, isColliding } from "./src/attackbox.js";
 import { spriteSets } from "./src/animation.js";
 import { Player } from "./src/player.js";
 
-const canvas = document.querySelector("canvas");
 
 export const c = canvas.getContext("2d");
 
@@ -11,7 +10,7 @@ export const env = {
   width: 1024,
   height: 576,
   gravity: 0.6,
-  displayAttackBoxes: true,
+  displayAttackBoxes: false,
 };
 
 export const renderQueue = [];
@@ -67,7 +66,7 @@ renderQueue.push(background, playerOne, playerTwo);
 
 playerOne.attacks = {
   shoot: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
-  punch: new AttackBox(playerOne, {})
+  punch: new AttackBox(playerOne, { damage: 200 })
 };
 
 playerTwo.attacks = {
@@ -75,15 +74,20 @@ playerTwo.attacks = {
   punch: new AttackBox(playerTwo, {})
 };
 
+let gameRunning = false;
+
+export function endGame() {
+  gameRunning = false;
+}
+
 function animate() {
+  if (!gameRunning) return;
   window.requestAnimationFrame(animate); // this creates an infinite loop.
 
   renderQueue.forEach((element) => {
     element.update();
   });
 }
-
-
 
 
 // eventlistners
@@ -143,13 +147,15 @@ window.addEventListener("keyup", (event) => {
 
 let startButton = document.getElementById('startButton')
 startButton.onclick = function startGame() {
-  
+
   let theStartButton = document.getElementById('startButton');
   let gameCanvas = document.getElementById('canvas');
   gameCanvas.style.display = 'block';
   theStartButton.style.display = 'none';
 
-animate (); 
+  gameRunning = true;
+
+  animate();
 }
 
 

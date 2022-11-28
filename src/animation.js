@@ -4,11 +4,17 @@
 export const spriteSets = {}
 
 spriteSets.background = {
-    background: {
+    boxingRing: {
+        source: '../assets/backgrounds/usable/boxing-ring.png',
+        frames: 1,
+        framesHold: 100,
+    },
+    forest: {
         source: '../assets/backgrounds/usable/forest-road.png',
         frames: 1,
         framesHold: 100,
     },
+
     options: {
         scale: 1,
         offset: { x: 0, y: 0 }
@@ -143,6 +149,16 @@ spriteSets.eskil = {
         frames: 4,
         framesHold: 10
     },
+    deathRight: {
+        source: '../assets/characters/Eskil/EskilDeathRight.png',
+        frames: 4,
+        framesHold: 10
+    },
+    deathLeft: {
+        source: '../assets/characters/Eskil/EskilDeathLeft.png',
+        frames: 4,
+        framesHold: 10
+    },
     options: {
         scale: 4,
         offset: { x: -170, y: -127 }
@@ -220,6 +236,16 @@ spriteSets.jonathan = {
     },
     hitLeft: {
         source: '../assets/characters/jonathan/jonathanTakeHitLeft.png',
+        frames: 4,
+        framesHold: 10
+    },
+    deathRight: {
+        source: '../assets/characters/jonathan/jonathanDeathRight.png',
+        frames: 4,
+        framesHold: 10
+    },
+    deathLeft: {
+        source: '../assets/characters/jonathan/jonathanDeathLeft.png',
         frames: 4,
         framesHold: 10
     },

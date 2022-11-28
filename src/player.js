@@ -1,4 +1,5 @@
 import { Sprite } from "./sprite.js";
+import { endGame, env } from "../game.js";
 
 export class Player extends Sprite {
   constructor({
@@ -27,12 +28,20 @@ export class Player extends Sprite {
 
   update() {
     super.update();
+
+    //player movement
     if (this.moving.right === this.moving.left) {
-      this.velocity.x = 0;
 
       if (this.isOnTheGround) {
 
+        this.velocity.x = 0;
+
         this.playAnimation(this.spriteSet['idle' + this.lastDirection]);
+
+      } else {
+
+        //Air resistance
+        this.velocity.x -= this.velocity.x * .05;
 
       }
 
@@ -50,10 +59,20 @@ export class Player extends Sprite {
 
     }
 
+    //Can't escape screen
+
+    if (this.position.x <= 0 && this.velocity.x < 0) {
+      this.velocity.x = 0;
+    }
+    if (this.position.x + this.width >= env.width && this.velocity.x > 0) {
+      this.velocity.x = 0;
+
+    }
+
+    //display fall animation
     if (!this.isOnTheGround && this.velocity.y > 0) {
 
       if (this.spriteSet) this.playAnimation(this.spriteSet['fall' + this.lastDirection]);
-
 
     }
   }
@@ -72,17 +91,33 @@ export class Player extends Sprite {
     this.playAnimation(this.spriteSet['jump' + this.lastDirection], true);
   }
 
- 
- takeDamage (damage) {
-  this.health -= damage;
-  this.healthBar.style.width = Math.floor(this.health/10) + '%';
-  this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
 
-  if (this.health <= 0) {
-    let winner = document.getElementById('winnerText');
-    winner.innerText = (`${this.enemy.name} WON!`)
-    winner.style.display="block" 
-  }
+  takeDamage(damage) {
+    this.health -= damage;
+    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
+    this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
+
+    this.velocity = { x: 10, y: -15 };
+    if (this.enemy.lastDirection === 'Left') {
+      this.velocity.x = -this.velocity.x
+    }
+
+    if (this.health <= 0) {
+      let winner = document.getElementById('winnerText');
+      winner.innerText = (`${this.enemy.name} WON!`)
+      winner.style.display = "block"
+
+      this.playAnimation(this.spriteSet['death' + this.lastDirection], true, () => {
+
+        console.table(this.isLastFrame);
+
+        endGame();
+
+
+
+      });
+
+    }
 
   }
 
