@@ -71,6 +71,8 @@ function animate() {
 
 animate();
 
+
+
 // eventlistners
 function eventInput(event, isKeydown) {
   console.log(event.key);
@@ -115,3 +117,18 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("keyup", (event) => {
   eventInput(event, false);
 });
+
+function startGame() {
+  let theStartButton = document.getElementById('startButton');
+  let gameCanvas = document.getElementById('canvas');
+  gameCanvas.style.display = 'block';
+  theStartButton.style.display = 'none';
+
+}
+
+
+
+
+
+
+

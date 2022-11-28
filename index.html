@@ -6,68 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hyper Battle</title>
     <link rel="stylesheet" href="style.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
+ 
   </head>
 
   <body>
-    <div style="position: relative; display: inline-block">
-      <div
-        style="
-          position: absolute;
-          display: flex;
-          width: 100%;
-          align-items: center;
-          padding: 20px;
-        "
-      >
+    <div class="mainDiv">
+      <div class="game-container">
         <!-- player one health -->
-        <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end ;">
-          <div style="background-color: yellow; height: 30px; width: 100%;"></div>
-          <div
-            id="playerOneHealth"
-            style="
-              position: absolute;
-              background: blue;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              width: 100%;
-            "
-          ></div>
+        <div class="player-container">
+          <div class="player-one-background"></div>
+          <div class="player-one-healthbar" id="playerOneHealth"></div>
         </div>
         <!-- timer -->
-        <div
-          style="
-            background-color: red;
-            width: 100px;
-            height: 100px;
-            flex-shrink: 0;
-          "
-        ></div>
+        <div class="timer"></div>
+
         <!-- player two health -->
-        <div style="position: relative; height: 30px; width: 100%">
-          <div style="background-color: yellow; height: 30px"></div>
-          <div
-            id="playerTwoHealth"
-            style="
-              position: absolute;
-              background: blue;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-            "
-          ></div>
+        <div class="player-two-health">
+          <div class="player-two-background"></div>
+          <div class="player-two-healthbar" id="playerTwoHealth"></div>
         </div>
         <div></div>
       </div>
-      <canvas></canvas>
+      <canvas id="canvas"></canvas>
+      <div class="name-container">
+        <div><p class="eskil-healthbar">DJUNGLE ESKIL</p></div>
+        <div><p class="jonathan-healthbar">ROIDS JONATHAN</p></div>
+      </div>
+      <div>
+        <p id="winnerText" class="winner-text"></p>
+      </div>
+      <div id="startButton" class="start-button">
+        <button class="game-button" onclick="startGame()">START GAME</button>
+      </div>
     </div>
-
     <script src="game.js" type="module"></script>
   </body>
 </html>
