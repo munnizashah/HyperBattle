@@ -10,7 +10,8 @@ export class Player extends Sprite {
     hasDoubleJump = false,
     health = 1000,
     healthBar,
-    name
+    name,
+    lastDirection
   }) {
     super({ position, velocity, hasGravity, spriteSet });
     this.moving = { right: false, left: false };
@@ -19,18 +20,24 @@ export class Player extends Sprite {
     this.health = health;
     this.healthBar = healthBar;
     this.name = name;
+
+    this.lastDirection = lastDirection;
   }
 
   update() {
     super.update();
     if (this.moving.right === this.moving.left) {
       this.velocity.x = 0;
+      // this.playAnimation('idle' + this.lastDirection);
     }
     if (this.moving.left) {
       this.velocity.x = -5;
+      this.lastDirection = 'left';
     }
     if (this.moving.right) {
       this.velocity.x = 5;
+      this.lastDirection = 'right';
+
     }
   }
   playerJump() {
