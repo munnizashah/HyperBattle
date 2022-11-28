@@ -85,7 +85,7 @@ function eventInput(event, isKeydown) {
       playerOne.moving.left = isKeydown;
       break;
     case "w":
-      if (isKeydown) playerOne.playerJump();
+      if (isKeydown) playerOne.jump();
 
       break;
     case " ":
@@ -100,7 +100,7 @@ function eventInput(event, isKeydown) {
       playerTwo.moving.left = isKeydown;
       break;
     case "ArrowUp":
-      if (isKeydown) playerTwo.playerJump();
+      if (isKeydown) playerTwo.jump();
       break;
     case "ArrowDown":
       if (isKeydown) playerTwo.attack.first();

@@ -68,8 +68,7 @@ export class AttackBox extends Sprite {
     }
 
     attack() {
-
-        if (this.isOnCooldown || this.currentlyShooting) return;
+        if (this.isOnCooldown || this.currentlyShooting) return console.table(this.isOnCooldown, this.currentlyShooting);
 
         this.player.playAnimation(this.player.spriteSet[this.animationName + this.firstCapital(this.player.lastDirection)], true, () => {
             this.player.isAttacking = false;
@@ -89,7 +88,18 @@ export class AttackBox extends Sprite {
 
         if (this.isShooting) {
             this.currentlyShooting = true;
-            this.velocity = this.attackVelocity;
+
+            if (this.player.lastDirection === 'Right') {
+                this.velocity = this.attackVelocity;
+
+            } else {
+                this.velocity = -this.attackVelocity;
+
+            }
+
+
+            // this.velocity = this.attackVelocity;
+
             this.renderIndex = renderQueue.push(this) - 1; //returns length array
 
             this.shootingTimeout = setTimeout(() => {

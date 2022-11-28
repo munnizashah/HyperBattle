@@ -29,7 +29,7 @@ export class Player extends Sprite {
     if (this.moving.right === this.moving.left) {
       this.velocity.x = 0;
 
-      if (!this.isAttacking && this.spriteSet) {
+      if (!this.isAttacking && this.spriteSet && this.isOnTheGround) {
 
         this.playAnimation(this.spriteSet['idle' + this.lastDirection]);
 
@@ -49,7 +49,8 @@ export class Player extends Sprite {
 
     }
   }
-  playerJump() {
+
+  jump() {
     if (this.isOnTheGround) {
       this.hasUsedDoubleJump = false;
       this.velocity.y = -this.jumpHeight;
