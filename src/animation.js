@@ -10,7 +10,7 @@ spriteSets.background = {
         framesHold: 100,
     },
     forest: {
-        source: '../assets/backgrounds/usable/forest-road.png',
+        source: '../assets/backgrounds/usable/forest-road-2.png',
         frames: 1,
         framesHold: 100,
     },

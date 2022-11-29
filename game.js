@@ -60,7 +60,7 @@ const playerTwo = new Player({
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
-const background = new Sprite({ spriteSet: spriteSets.background });
+const background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
 
 renderQueue.push(background, playerOne, playerTwo);
 

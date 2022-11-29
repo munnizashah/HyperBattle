@@ -8,7 +8,8 @@ export class Sprite {
         height = 150,
         color = 'rgba(255, 255, 255, 0.5)',
         hasGravity = false,
-        spriteSet
+        spriteSet,
+        randomSprite = false
     }) {
 
         this.position = position;
@@ -20,15 +21,24 @@ export class Sprite {
         this.height = height;
 
 
+
         if (spriteSet) {
             this.spriteSet = spriteSet;
             this.image = new Image();
 
-            this.playAnimation(this.spriteSet[Object.keys(spriteSet)[0]]);
+            if (randomSprite) {
+
+                const spriteList = Object.values(this.spriteSet)
+
+                const randomIndex = Math.floor(Math.random() * (spriteList.length - 1));
+
+                const sprite = spriteList[randomIndex]
+
+                this.playAnimation(sprite);
+
+            }
 
             c.imageSmoothingEnabled = false; //otherwise it smooths the images when scaling
-
-
 
             this.currentFrame = 0;
             this.framesElapsed = 0;
