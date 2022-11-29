@@ -1,4 +1,4 @@
-import { c, env, renderQueue } from '../game.js'
+import { c, env, renderQueue, playSound } from '../game.js'
 import { Sprite } from './sprite.js'
 
 export class AttackBox extends Sprite {
@@ -99,6 +99,7 @@ export class AttackBox extends Sprite {
         }, this.cooldown);
 
 
+
         this.position = { ...this.player.position }; //Copy object without syncing them
 
 
@@ -144,6 +145,7 @@ export class AttackBox extends Sprite {
 
                         this.image.src = data.url;
 
+
                         this.playAnimation({
                             source: data.url,
                             offset: { x: 0, y: 0 },
@@ -156,6 +158,9 @@ export class AttackBox extends Sprite {
 
 
         } else { //normal / non-shooting attacks
+
+            playSound('punch');
+
 
             if (isColliding(this, this.player.enemy)) {
                 console.log('Attack succesfull!')

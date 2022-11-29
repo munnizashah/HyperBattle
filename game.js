@@ -186,6 +186,25 @@ startButton.onclick = function startGame() {
   animate();
 }
 
+export function playSound(soundString) {
+
+  const sound = document.createElement('audio');
+
+  sound.src = `../assets/sound/${soundString}.mp3`;
+
+  document.body.append(sound);
+
+  sound.play();
+
+  setTimeout(() => {
+    sound.remove()
+  }, 1000);
+
+};
+
+
+
+
 
 
 
