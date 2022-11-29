@@ -95,21 +95,27 @@ export class Sprite {
     draw() {
 
         if (this.activeSprite) {
-            c.drawImage(
-                this.image, //the image we want to draw
+            try {
 
-                //Here we decide what part of the source image we want
-                (this.image.width / this.activeSprite.frames * this.currentFrame),  //source X coord
-                0,                                                                               //source Y coord
-                this.image.width / this.activeSprite.frames,                                     //source width - we want this devided by amount of frames
-                this.image.height,                                                               //source height
 
-                //here we decide how to print it in the canvas        
-                this.position.x + this.offset.x,                                                 //image X coord
-                this.position.y + this.offset.y,                                                 //image X coord
-                (this.image.width / this.activeSprite.frames) * this.scale,                      //desired width
-                this.image.height * this.scale                                                   //desired height
-            );
+                c.drawImage(
+                    this.image, //the image we want to draw
+
+                    //Here we decide what part of the source image we want
+                    (this.image.width / this.activeSprite.frames * this.currentFrame),  //source X coord
+                    0,                                                                               //source Y coord
+                    this.image.width / this.activeSprite.frames,                                     //source width - we want this devided by amount of frames
+                    this.image.height,                                                               //source height
+
+                    //here we decide how to print it in the canvas        
+                    this.position.x + this.offset.x,                                                 //image X coord
+                    this.position.y + this.offset.y,                                                 //image X coord
+                    (this.image.width / this.activeSprite.frames) * this.scale,                      //desired width
+                    this.image.height * this.scale                                                   //desired height
+                );
+            } catch {
+                debugger;
+            }
 
         }
         if (env.displayAttackBoxes) {

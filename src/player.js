@@ -1,5 +1,5 @@
 import { Sprite } from "./sprite.js";
-import { endGame, env, playSound } from "../game.js";
+import { env, playSound } from "../game.js";
 
 export class Player extends Sprite {
   constructor({
@@ -94,6 +94,7 @@ export class Player extends Sprite {
 
   takeDamage(damage, knockback) {
 
+    if (!env.gameRunning) return;
 
     this.health -= damage;
     this.healthBar.style.width = Math.floor(this.health / 10) + '%';
@@ -116,7 +117,7 @@ export class Player extends Sprite {
 
         console.table(this.isLastFrame);
 
-        endGame();
+        env.gameRunning = false;
 
 
 

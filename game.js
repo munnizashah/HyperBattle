@@ -11,6 +11,7 @@ export const env = {
   height: 576,
   gravity: 0.6,
   airResistance: 0.05,
+  gameRunning: false,
   displayAttackBoxes: false
 };
 
@@ -105,14 +106,8 @@ playerTwo.attacks = {
   })
 };
 
-let gameRunning = false;
-
-export function endGame() {
-  gameRunning = false;
-}
-
 function animate() {
-  if (!gameRunning) return;
+  if (!env.gameRunning) return;
   window.requestAnimationFrame(animate); // this creates an infinite loop.
   console.log(renderQueue)
   renderQueue.forEach((element) => {
@@ -123,6 +118,7 @@ function animate() {
 
 // eventlistners
 function eventInput(event, isKeydown) {
+  if (!env.gameRunning) return;
   switch (event.key) {
     //Player 1
     case "d":
@@ -160,7 +156,7 @@ function eventInput(event, isKeydown) {
       event.preventDefault();
       if (isKeydown) playerTwo.attacks.punch.attack();
       break;
-    case "PageUp":
+    case "Insert":
       event.preventDefault();
       if (isKeydown) playerTwo.attacks.shoot.attack();
       break;
@@ -189,7 +185,7 @@ startButton.onclick = function startGame() {
   startBackground.style.display = 'none';
 
 
-  gameRunning = true;
+  env.gameRunning = true;
 
   animate();
 }
