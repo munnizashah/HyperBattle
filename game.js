@@ -172,18 +172,11 @@ window.addEventListener("keyup", (event) => {
   eventInput(event, false);
 });
 
-let startButton = document.getElementById('startButton')
-startButton.onclick = function startGame() {
+document.getElementById('startButton').onclick = function startGame() {
 
-  let theStartButton = document.getElementById('startButton');
-  let gameCanvas = document.getElementById('canvas');
-  let topBarContainer = document.getElementById('topBarContainer');
-  let startBackground = document.getElementById('startBackground');
-  gameCanvas.style.display = 'block';
-  theStartButton.style.display = 'none';
-  topBarContainer.style.display = 'flex';
-  startBackground.style.display = 'none';
+  const startMenu = document.getElementById('startMenu');
 
+  startMenu.style.display = 'none';
 
   env.gameRunning = true;
 

@@ -8,7 +8,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(./1155188.webp);
+  background-image: url(./img/gradient-background.webp);
 }
 
 main {
@@ -23,8 +23,8 @@ main {
 
 .start-background {
   width: 1200px;
-position: absolute;
-height: 85vh;
+  position: absolute;
+  height: 85vh;
 }
 
 main canvas {
@@ -32,7 +32,7 @@ main canvas {
   height: 100%;
 }
 
-
+/* TOPBAR */
 .topbar-container {
   position: absolute;
   display: flex;
@@ -41,8 +41,9 @@ main canvas {
   padding: 20px;
   font-family: "Russo One", sans-serif;
   color: orange;
-  display: none;
 }
+
+/* HEALTHBAR */
 
 .healthbar-container {
   position: relative;
@@ -69,61 +70,6 @@ main canvas {
   justify-content: flex-end;
 }
 
-.timer {
-  background-color: black;
-  width: 100px;
-  border-radius: 20%;
-  height: 70px;
-  flex-shrink: 0;
-  color: orange;
-}
-
-.winner-text {
-  display: none;
-  font-family: "Russo One", sans-serif;
-  color: orange;
-  font-size: 4rem;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.start-button {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.game-button {
-  background-color: #cf245f;
-  background-image: linear-gradient(to bottom right, #fcd34d, #ef4444, #ec4899);
-  border: 0;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1.125rem; /* 18px */
-  font-weight: 600;
-  line-height: 1.75rem; /* 28px */
-  padding: 1rem 1.25rem;
-  text-align: center;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.game-button:hover,
-.game-button:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em;
-  transform: translateY(-0.25em);
-}
-
 .eskil-name {
   position: absolute;
   background-color: black;
@@ -138,6 +84,17 @@ main canvas {
   right: 2%;
 }
 
+/* TIMER / VS */
+
+.timer {
+  background-color: black;
+  width: 100px;
+  border-radius: 20%;
+  height: 70px;
+  flex-shrink: 0;
+  color: orange;
+}
+
 .vs {
   display: flex;
   justify-content: center;
@@ -146,4 +103,71 @@ main canvas {
   color: orange;
   font-size: 1.5rem;
   font-family: "Russo One", sans-serif;
+}
+
+
+/* START MENU */
+
+.start-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(./img/streetfigher-background.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+
+.start-button {
+  background-color: #cf245f;
+  background: linear-gradient(to bottom right, #fcd34d, #ef4444, #ec4899);
+
+  color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  line-height: 1.75rem; /* 28px */
+  text-align: center;
+
+
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  padding: 1rem 1.25rem;
+  user-select: none;
+  -webkit-user-select: none;
+
+  transition: .2s;
+}
+
+.start-button:hover,
+.start-button:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em;
+  transform: translateY(-0.25em);
+}
+
+
+/* WINNER OVERLAY */
+.winner-text {
+  display: none;
+  font-family: "Russo One", sans-serif;
+  color: orange;
+  font-size: 4rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

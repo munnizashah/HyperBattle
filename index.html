@@ -16,7 +16,7 @@
 <body>
 
   <main>
-    <div> <img src="./street-fighter-ryu-1024x768-video-games-street-fighter-hd-art-wallpaper-preview.jpeg" class="start-background" id="startBackground" alt=""></div>
+    <!-- the topbar (healthbar and vs / timer) -->
     <div class="topbar-container" id="topBarContainer">
       <!-- player one health -->
       <div class="healthbar-container">
@@ -45,16 +45,17 @@
       <div></div>
     </div>
 
-    <canvas id="canvas">
-    </canvas>
-    <div class="start-background"></div>
+    <canvas id="canvas"></canvas>
 
-    <div>
+
+    <div class="start-overlay" id="startMenu">
+      <button id="startButton" class="start-button">START GAME</button>
+    </div>
+
+    <div class="winner-overlay">
       <p id="winnerText" class="winner-text"></p>
     </div>
-    <div class="start-button">
-      <button id="startButton" class="game-button">START GAME</button>
-    </div>
+
   </main>
   <script src="game.js" type="module"></script>
 </body>
