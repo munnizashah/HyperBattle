@@ -20,10 +20,17 @@ main {
   max-width: 1200px;
 }
 
+.start-background {
+  width: 1200px;
+position: absolute;
+height: 85vh;
+}
+
 main canvas {
   width: 100%;
   height: 100%;
 }
+
 
 .topbar-container {
   position: absolute;
@@ -31,9 +38,9 @@ main canvas {
   width: 100%;
   align-items: center;
   padding: 20px;
-
   font-family: "Russo One", sans-serif;
   color: orange;
+  display: none;
 }
 
 .healthbar-container {

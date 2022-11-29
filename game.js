@@ -178,8 +178,13 @@ startButton.onclick = function startGame() {
 
   let theStartButton = document.getElementById('startButton');
   let gameCanvas = document.getElementById('canvas');
+  let topBarContainer = document.getElementById('topBarContainer');
+  let startBackground = document.getElementById('startBackground');
   gameCanvas.style.display = 'block';
   theStartButton.style.display = 'none';
+  topBarContainer.style.display = 'flex';
+  startBackground.style.display = 'none';
+
 
   gameRunning = true;
 
