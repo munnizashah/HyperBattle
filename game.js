@@ -11,6 +11,7 @@ export const env = {
   height: 576,
   gravity: 0.6,
   displayAttackBoxes: false,
+  airResistance: 0.05
 };
 
 export const renderQueue = [];
@@ -65,13 +66,40 @@ const background = new Sprite({ spriteSet: spriteSets.background, randomSprite: 
 renderQueue.push(background, playerOne, playerTwo);
 
 playerOne.attacks = {
-  shoot: new AttackBox(playerOne, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
-  punch: new AttackBox(playerOne, { damage: 200 })
+
+  shoot: new AttackBox(playerOne, {
+    isShooting: true,
+    api: 'https://meme-api.herokuapp.com/gimme/wholesomememes',
+    cooldown: 1000,
+    knockback: { x: 5, y: -5 },
+    velocity: { x: 12, y: 0 },
+    damage: 100
+
+  }),
+
+  punch: new AttackBox(playerOne, {
+    damage: 30,
+    knockback: { x: 10, y: -15 }
+  })
 };
 
 playerTwo.attacks = {
-  shoot: new AttackBox(playerTwo, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
-  punch: new AttackBox(playerTwo, { damage: 200 })
+
+  shoot: new AttackBox(playerTwo, {
+    isShooting: true,
+    api: 'https://meme-api.herokuapp.com/gimme/wholesomememes',
+    cooldown: 1000,
+    knockback: { x: 5, y: -5 },
+    velocity: { x: 12, y: 0 },
+    damage: 100
+
+
+  }),
+
+  punch: new AttackBox(playerTwo, {
+    damage: 30,
+    knockback: { x: 10, y: -15 },
+  })
 };
 
 let gameRunning = false;

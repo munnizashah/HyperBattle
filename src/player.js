@@ -41,7 +41,7 @@ export class Player extends Sprite {
       } else {
 
         //Air resistance
-        this.velocity.x -= this.velocity.x * .05;
+        this.velocity.x -= this.velocity.x * env.airResistance;
 
       }
 
@@ -92,12 +92,17 @@ export class Player extends Sprite {
   }
 
 
-  takeDamage(damage) {
+  takeDamage(damage, knockback) {
+
+
     this.health -= damage;
     this.healthBar.style.width = Math.floor(this.health / 10) + '%';
     this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
 
-    this.velocity = { x: 10, y: -15 };
+    if (knockback) this.velocity = { ...knockback };
+
+    // this.velocity = { x: 10, y: -15 };
+
     if (this.enemy.lastDirection === 'Left') {
       this.velocity.x = -this.velocity.x
     }
@@ -118,6 +123,18 @@ export class Player extends Sprite {
       });
 
     }
+
+  }
+
+  playAnimation(sprite, playOnce = false, callback = () => { }) {
+    if (this.activeSprite) {
+      if (sprite !== this.spriteSet['death' + this.lastDirection]) {
+        if (!this.isLastFrame && this.activeSprite.playOnce) return console.log('Playonce animation cant be interrupted');
+
+      }
+    }
+
+    super.playAnimation(sprite, playOnce, callback);
 
   }
 

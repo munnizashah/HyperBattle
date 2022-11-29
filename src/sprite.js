@@ -68,11 +68,8 @@ export class Sprite {
 
     playAnimation(sprite, playOnce = false, callback = () => { }) {
         if (this.activeSprite) {
-            if (sprite !== this.spriteSet['death' + this.lastDirection]) {
-                if (!this.isLastFrame && this.activeSprite.playOnce) return console.log('Playonce animation cant be interrupted');
 
-            }
-            if (this.activeSprite.source === sprite.source) return console.log('changing to same sprite running');
+            if (this.activeSprite.source === sprite.source) return;
             this.activeSprite.callback(); //call previous animation callback
 
         }

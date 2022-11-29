@@ -12,6 +12,7 @@ export class AttackBox extends Sprite {
         height = 60,
         color = 'green',
         damage = 50,
+        knockback = { x: 1, y: 0 },
         api
 
     }) {
@@ -26,6 +27,7 @@ export class AttackBox extends Sprite {
         this.height = height;
 
         this.damage = damage;
+        this.knockback = knockback;
         this.isShooting = isShooting;
 
         if (this.isShooting) {
@@ -69,6 +71,11 @@ export class AttackBox extends Sprite {
 
     set height(height) {
         this._height = height;
+    }
+
+    get renderIndex() {
+        return renderQueue.indexOf(this);
+
     }
 
     attack() {
@@ -116,7 +123,8 @@ export class AttackBox extends Sprite {
 
             // this.velocity = this.attackVelocity;
 
-            this.renderIndex = renderQueue.push(this) - 1; //returns length array
+            renderQueue.push(this) - 1; //returns length array
+
 
             this.shootingTimeout = setTimeout(() => {
                 this.velocity = { x: 0, y: 0 };
@@ -151,7 +159,7 @@ export class AttackBox extends Sprite {
 
             if (isColliding(this, this.player.enemy)) {
                 console.log('Attack succesfull!')
-                this.player.enemy.takeDamage(this.damage)
+                this.player.enemy.takeDamage(this.damage, this.knockback)
                 //DAMAGE ENEMY CODE
             } else {
                 console.log('Attack missed')
@@ -174,7 +182,7 @@ export class AttackBox extends Sprite {
 
 
             clearTimeout(this.shootingTimeout);
-            this.player.enemy.takeDamage(this.damage)
+            this.player.enemy.takeDamage(this.damage, this.knockback)
 
             //DAMAGE ENEMY CODE
             console.log('Attack succesfull!')
