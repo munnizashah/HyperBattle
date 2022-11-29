@@ -27,10 +27,11 @@ export class Player extends Sprite {
 
   }
 
+  //UPDATE MOVEMENT
   update() {
     super.update();
 
-    //player movement
+    //PLAYER MOVEMENT
     if (this.moving.right === this.moving.left) {
 
       if (this.isOnTheGround) {
@@ -41,7 +42,6 @@ export class Player extends Sprite {
 
       } else {
 
-        //Air resistance
         this.velocity.x -= this.velocity.x * env.airResistance;
 
       }
@@ -60,17 +60,21 @@ export class Player extends Sprite {
 
     }
 
-    //Can't escape screen
-
+    //CAN'T ESCAPE SCREEN
+    //left side
     if (this.position.x <= 0 && this.velocity.x < 0) {
       this.velocity.x = 0;
+      this.position.x = 0;
+
     }
+    //right side
     if (this.position.x + this.width >= env.width && this.velocity.x > 0) {
       this.velocity.x = 0;
+      this.position.x = env.width - this.width;
 
     }
 
-    //display fall animation
+    //FALL ANIMATION
     if (!this.isOnTheGround && this.velocity.y > 0) {
 
       if (this.spriteSet) this.playAnimation(this.spriteSet['fall' + this.lastDirection]);
@@ -137,10 +141,12 @@ export class Player extends Sprite {
 
   }
 
+  //PREVENT INTERRUPTION OF DEATH ANIMATION
   playAnimation(sprite, playOnce = false, callback = () => { }) {
+
     if (this.activeSprite) {
       if (sprite !== this.spriteSet['death' + this.lastDirection]) {
-        if (!this.isLastFrame && this.activeSprite.playOnce) return console.log('Playonce animation cant be interrupted');
+        if (!this.isLastFrame && this.activeSprite.playOnce) return console.log('Death animation can not be interrupted');
 
       }
     }

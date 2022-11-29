@@ -3,7 +3,7 @@ import { AttackBox, isColliding } from "./src/attackbox.js";
 import { spriteSets } from "./src/animation.js";
 import { Player } from "./src/player.js";
 
-
+//CREATE ENVIRONMENT
 export const c = canvas.getContext("2d");
 
 export const env = {
@@ -20,6 +20,10 @@ export const renderQueue = [];
 canvas.width = env.width;
 canvas.height = env.height;
 
+let background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
+
+
+//CREATE PLAYERS
 export const playerOne = new Player({
   defaultPosition: {
     x: 150,
@@ -37,8 +41,6 @@ export const playerOne = new Player({
   hasDoubleJump: true
 
 });
-
-
 
 export const playerTwo = new Player({
   defaultPosition: {
@@ -58,15 +60,15 @@ export const playerTwo = new Player({
 
 });
 
-
-
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
-let background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
 
+//RENDER QUEUE - ORDER MATTERS
 renderQueue.push(background, playerOne, playerTwo);
 
+
+//CREATE ATTACKS
 playerOne.attacks = {
 
   shoot: new AttackBox(playerOne, {
@@ -80,7 +82,7 @@ playerOne.attacks = {
   }),
 
   punch: new AttackBox(playerOne, {
-    damage: 1000,
+    damage: 70,
     knockback: { x: 10, y: -15 }
   })
 };
@@ -94,8 +96,6 @@ playerTwo.attacks = {
     knockback: { x: 5, y: -5 },
     velocity: { x: 12, y: 0 },
     damage: 170
-
-
   }),
 
   punch: new AttackBox(playerTwo, {
@@ -104,10 +104,13 @@ playerTwo.attacks = {
   })
 };
 
+
+//ANIMATION LOOP
 function animate() {
   if (!env.gameRunning) return;
+
   window.requestAnimationFrame(animate); // this creates an infinite loop.
-  console.log(renderQueue)
+
   renderQueue.forEach((element) => {
     element.update();
   });
@@ -188,9 +191,7 @@ window.addEventListener("keyup", (event) => {
 });
 
 
-
-
-
+//RESET GAME
 function resetGame() {
 
   const winnerOverlayEl = document.getElementById('winnerOverlay')
@@ -203,38 +204,35 @@ function resetGame() {
     player.health = 1000;
     player.position = { ...player.defaultPosition };
     player.velocity = { x: 0, y: 0 };
+    player.activeSprite.callback = () => { };
     player.updateHealthBar();
 
   });
 
 }
 
-
-
-
-
-//BUTTONS
-document.getElementById('startButton').onclick = function startGame() {
-
-  const startMenu = document.getElementById('startMenu');
-
-  startMenu.style.display = 'none';
-
+function startGame() {
   env.gameRunning = true;
 
   animate();
 }
 
+//BUTTONS
+const startMenu = document.getElementById('startMenu');
+
+document.getElementById('startButton').onclick = () => {
+
+  startMenu.style.display = 'none';
+
+  startGame();
+}
+
 
 document.getElementById('mainMenuButton').onclick = () => {
 
-
   resetGame();
 
-  const startMenu = document.getElementById('startMenu');
-
   startMenu.style.display = 'flex';
-
 
 }
 
@@ -243,9 +241,7 @@ document.getElementById('playAgainButton').onclick = () => {
 
   resetGame();
 
-  env.gameRunning = true;
-
-  animate();
+  startGame();
 
 }
 

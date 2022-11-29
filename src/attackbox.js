@@ -17,7 +17,7 @@ export class AttackBox extends Sprite {
 
     }) {
         //Note that velocity IS NOT PASSED and is only applied when shooting
-        super({ position, color }); //calling constructor function of parent class (Sprite)
+        super({ position, color });
 
         this.player = player; //Which player does the attack belong to?
 
@@ -29,6 +29,8 @@ export class AttackBox extends Sprite {
         this.damage = damage;
         this.knockback = knockback;
         this.isShooting = isShooting;
+        this.cooldown = cooldown;
+        this.duration = duration;
 
         if (this.isShooting) {
             this.animationName = 'shotAttack';
@@ -36,8 +38,6 @@ export class AttackBox extends Sprite {
             this.animationName = 'attack'
         }
 
-        this.cooldown = cooldown;
-        this.duration = duration;
 
         this.api = api;
         if (api) {
@@ -51,6 +51,7 @@ export class AttackBox extends Sprite {
         }
     }
 
+    //ATTACKBOX DIMENSIONS
     get width() {
         if (this.activeSprite) {
             return this.image.width * this.activeSprite.scale;
@@ -73,13 +74,15 @@ export class AttackBox extends Sprite {
         this._height = height;
     }
 
+
+
     get renderIndex() {
         return renderQueue.indexOf(this);
 
     }
 
     attack() {
-        if (this.isOnCooldown || this.currentlyShooting) return console.table(this.isOnCooldown, this.currentlyShooting);
+        if (this.isOnCooldown) return;
 
         this.player.playAnimation(this.player.spriteSet[this.animationName + this.player.lastDirection],
             {
@@ -108,32 +111,30 @@ export class AttackBox extends Sprite {
         }
 
 
-
+        //SHOOT ATTACKS
         if (this.isShooting) {
+
+            if (this.currentlyShooting) return;
+
             this.currentlyShooting = true;
 
-            if (this.player.lastDirection === 'Right') {
-                this.velocity.x = this.attackVelocity.x;
 
-            } else {
-                console.log('its going left!')
-                this.velocity.x = -this.attackVelocity.x;
+            this.velocity = { ...this.attackVelocity };
+
+            if (this.player.lastDirection === 'Left') {
+                this.velocity.x = -this.velocity.x;
 
             }
 
-
-            // this.velocity = this.attackVelocity;
-
-            renderQueue.push(this) - 1; //returns length array
-
+            renderQueue.push(this) - 1;
 
             this.shootingTimeout = setTimeout(() => {
+
                 this.velocity = { x: 0, y: 0 };
+
                 renderQueue.splice(this.renderIndex, 1);
 
                 this.currentlyShooting = false;
-
-                console.log('Attack missed')
 
             }, this.duration);
 
@@ -145,52 +146,44 @@ export class AttackBox extends Sprite {
 
                         this.image.src = data.url;
 
-
                         this.playAnimation({
                             source: data.url,
                             offset: { x: 0, y: 0 },
                             scale: .1,
                             frames: 1
                         });
-
                     });
-            }
-
-
-        } else { //normal / non-shooting attacks
-
-            playSound('punch');
-
-
-            if (isColliding(this, this.player.enemy)) {
-                console.log('Attack succesfull!')
-                this.player.enemy.takeDamage(this.damage, this.knockback)
-                //DAMAGE ENEMY CODE
-            } else {
-                console.log('Attack missed')
             }
         }
 
+        //NORMAL (MELEE) ATTACKS
+        else {
 
+            playSound('punch');
 
+            if (isColliding(this, this.player.enemy)) {
+                this.player.enemy.takeDamage(this.damage, this.knockback)
+            }
+        }
+    }
+
+    removeShot() {
+        this.currentlyShooting = false;
+        this.velocity = { x: 0, y: 0 };
+        renderQueue.splice(this.renderIndex, 1);
     }
 
     update() {
         super.update();
 
 
-        //if shot lands
+        //SHOT LANDING
         if (this.currentlyShooting && isColliding(this, this.player.enemy)) {
-            this.currentlyShooting = false;
-            this.velocity = { x: 0, y: 0 };
-            renderQueue.splice(this.renderIndex, 1);
 
+            this.removeShot()
 
             clearTimeout(this.shootingTimeout);
             this.player.enemy.takeDamage(this.damage, this.knockback)
-
-            //DAMAGE ENEMY CODE
-            console.log('Attack succesfull!')
 
         }
     }
@@ -206,15 +199,11 @@ export class AttackBox extends Sprite {
 }
 
 
-
+//COLLISION CHECKING
 export function isColliding(rect1, rect2) {
-
 
     rect1.sides = getSides(rect1);
     rect2.sides = getSides(rect2);
-
-    // console.table({ attackBoxSides: rect1.sides, enemySides: rect2.sides });
-
 
     function getSides(rect) {
 
@@ -239,37 +228,3 @@ export function isColliding(rect1, rect2) {
     return false;
 }
 
-// export function isColliding(rect1, rect2) {
-
-
-//     rect1.sides = getSides(rect1);
-//     rect2.sides = getSides(rect2);
-
-//     console.table({ attackBoxSides: rect1.sides, enemySides: rect2.sides });
-
-//     function getSides(rect) {
-
-//         const sides = {
-//             left: rect.position.x,
-//             top: rect.position.y,
-//             right: rect.position.x + rect.width,
-//             bottom: rect.position.y + rect.height
-//         };
-
-//         return sides;
-//     }
-
-//     if (
-//         (rect1.sides.left < rect2.sides.right &&
-//             rect1.sides.right > rect2.sides.left &&
-//             rect1.sides.top < rect2.sides.bottom &&
-//             rect1.sides.bottom > rect2.sides.top)
-//         || (rect1.sides.left > rect2.sides.left &&
-//             rect1.sides.left > rect2.sides.right &&
-//             rect1.sides.top < rect2.sides.bottom &&
-//             rect1.sides.bottom > rect2.sides.top)
-//     ) {
-//         return true;
-//     }
-//     return false;
-// }
