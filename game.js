@@ -135,7 +135,6 @@ function eventInput(event, isKeydown) {
     case "s":
       event.preventDefault();
       if (isKeydown) playerOne.attacks.punch.attack();
-      startPlayBgm();
       break;
     case "f":
       event.preventDefault();
@@ -168,7 +167,6 @@ function eventInput(event, isKeydown) {
 window.addEventListener("keydown", (event) => {
   console.log(event.key);
   eventInput(event, true);
-  startPlayBgm('punch', true);
 });
 
 window.addEventListener("keyup", (event) => {
@@ -187,22 +185,25 @@ startButton.onclick = function startGame() {
 
   animate();
 }
- const soundEl = document.createElement('audio');
- soundEl.setAttribute("id", "bgm"); 
 
- soundEl.src = "../assets/backgrounds/wave_boxing.mp3";
- document.body.append(soundEl);
+export function playSound(soundString) {
+
+  const sound = document.createElement('audio');
+
+  sound.src = `../assets/sound/${soundString}.mp3`;
+
+  document.body.append(sound);
+
+  sound.play();
+
+  setTimeout(() => {
+    sound.remove()
+  }, 1000);
+
+};
 
 
-  let bgmStarted = false;
-  const startPlayBgm = () => {
-   if (bgmStarted) return;
-  //  bgmStarted = true;
-   soundEl.play();
-  };
-  
 
- 
 
 
 

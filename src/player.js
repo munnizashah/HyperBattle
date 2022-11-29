@@ -1,5 +1,5 @@
 import { Sprite } from "./sprite.js";
-import { endGame, env } from "../game.js";
+import { endGame, env, playSound } from "../game.js";
 
 export class Player extends Sprite {
   constructor({
@@ -101,7 +101,7 @@ export class Player extends Sprite {
 
     if (knockback) this.velocity = { ...knockback };
 
-    // this.velocity = { x: 10, y: -15 };
+    playSound('hit');
 
     if (this.enemy.lastDirection === 'Left') {
       this.velocity.x = -this.velocity.x
