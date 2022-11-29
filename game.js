@@ -10,8 +10,8 @@ export const env = {
   width: 1024,
   height: 576,
   gravity: 0.6,
-  displayAttackBoxes: false,
-  airResistance: 0.05
+  airResistance: 0.05,
+  displayAttackBoxes: false
 };
 
 export const renderQueue = [];
@@ -34,7 +34,8 @@ const playerOne = new Player({
   spriteSet: spriteSets.eskil,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
-  lastDirection: 'Right'
+  lastDirection: 'Right',
+  hasDoubleJump: true
 
 });
 
@@ -53,7 +54,9 @@ const playerTwo = new Player({
   spriteSet: spriteSets.jonathan,
   healthBar: document.getElementById('playerTwoHealth'),
   name: 'Jonathan',
-  lastDirection: 'Left'
+  lastDirection: 'Left',
+  hasDoubleJump: true
+
 });
 
 
@@ -73,12 +76,12 @@ playerOne.attacks = {
     cooldown: 1000,
     knockback: { x: 5, y: -5 },
     velocity: { x: 12, y: 0 },
-    damage: 100
+    damage: 170
 
   }),
 
   punch: new AttackBox(playerOne, {
-    damage: 30,
+    damage: 70,
     knockback: { x: 10, y: -15 }
   })
 };
@@ -91,13 +94,13 @@ playerTwo.attacks = {
     cooldown: 1000,
     knockback: { x: 5, y: -5 },
     velocity: { x: 12, y: 0 },
-    damage: 100
+    damage: 170
 
 
   }),
 
   punch: new AttackBox(playerTwo, {
-    damage: 30,
+    damage: 70,
     knockback: { x: 10, y: -15 },
   })
 };
@@ -111,7 +114,7 @@ export function endGame() {
 function animate() {
   if (!gameRunning) return;
   window.requestAnimationFrame(animate); // this creates an infinite loop.
-
+  console.log(renderQueue)
   renderQueue.forEach((element) => {
     element.update();
   });
@@ -157,7 +160,7 @@ function eventInput(event, isKeydown) {
       event.preventDefault();
       if (isKeydown) playerTwo.attacks.punch.attack();
       break;
-    case "Control":
+    case "PageUp":
       event.preventDefault();
       if (isKeydown) playerTwo.attacks.shoot.attack();
       break;

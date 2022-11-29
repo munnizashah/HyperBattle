@@ -57,7 +57,7 @@ export class Sprite {
 
     get isOnTheGround() {
         if (this.position.y + this.height + this.velocity.y >= env.height) {
-
+            if (this.hasUsedDoubleJump) this.hasUsedDoubleJump = false
             return true
 
         } else {
