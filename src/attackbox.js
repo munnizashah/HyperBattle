@@ -8,7 +8,7 @@ export class AttackBox extends Sprite {
         isShooting,
         duration = 3000, //duration only applies for shooting attacks
         cooldown = 0,
-        width = 130,
+        width = 150,
         height = 60,
         color = 'green',
         damage = 50,

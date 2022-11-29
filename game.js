@@ -71,7 +71,7 @@ playerOne.attacks = {
 
 playerTwo.attacks = {
   shoot: new AttackBox(playerTwo, { isShooting: true, api: 'https://meme-api.herokuapp.com/gimme/wholesomememes', cooldown: 1000 }),
-  punch: new AttackBox(playerTwo, {})
+  punch: new AttackBox(playerTwo, { damage: 200 })
 };
 
 let gameRunning = false;
