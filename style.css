@@ -4,12 +4,12 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background-image: url(./1155188.webp);
 }
-
 
 main {
   position: absolute;
@@ -17,15 +17,12 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 1400px;
-
+  max-width: 1200px;
 }
 
 main canvas {
   width: 100%;
   height: 100%;
-
-
 }
 
 .topbar-container {
@@ -73,7 +70,6 @@ main canvas {
   color: orange;
 }
 
-
 .winner-text {
   display: none;
   font-family: "Russo One", sans-serif;
@@ -120,18 +116,17 @@ main canvas {
   transform: translateY(-0.25em);
 }
 
-
 .eskil-name {
   position: absolute;
   background-color: black;
-  top: 80%;
+  top: 110%;
   left: 2%;
 }
 
 .jonathan-name {
   position: absolute;
   background-color: black;
-  top: 80%;
+  top: 110%;
   right: 2%;
 }
 
@@ -139,6 +134,8 @@ main canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1.4rem;
   color: orange;
   font-size: 1.5rem;
-  font-family: "Russo One", sans-serif;}
+  font-family: "Russo One", sans-serif;
+}
