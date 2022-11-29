@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hyper Battle</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap"
-      rel="stylesheet"
-    />
- 
-  </head>
 
-  <body>
-    <div class="mainDiv">
-      <div class="game-container">
-        <!-- player one health -->
-        <div class="player-container">
-          <div class="player-one-background"></div>
-          <div class="player-one-healthbar" id="playerOneHealth"></div>
-        </div>
-        <!-- timer -->
-        <div class="timer"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyper Battle</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet" />
 
-        <!-- player two health -->
-        <div class="player-two-health">
-          <div class="player-two-background"></div>
-          <div class="player-two-healthbar" id="playerTwoHealth"></div>
+</head>
+
+<body>
+  <main>
+    <div class="topbar-container">
+      <!-- player one health -->
+      <div class="healthbar-container">
+        <div class="healthbar-background flex-end">
+          <div class="healthbar-healthbar" id="playerOneHealth"></div>
+          <div>
+            <p class="eskil-name">DJUNGLE ESKIL</p>
+          </div>
+
         </div>
-        <div></div>
       </div>
-      <canvas id="canvas"></canvas>
-      <div class="name-container">
-        <div><p class="eskil-healthbar">DJUNGLE ESKIL</p></div>
-        <div><p class="jonathan-healthbar">ROIDS JONATHAN</p></div>
+      <!-- timer -->
+      <div class="timer">
+        <p class="vs">VS</p>
       </div>
-      <div>
-        <p id="winnerText" class="winner-text"></p>
+
+      <!-- player two health -->
+      <div class="healthbar-container">
+        <div class="healthbar-background">
+          <div class="healthbar-healthbar" id="playerTwoHealth"></div>
+        </div>
+        <div>
+          <p class="jonathan-name">ROIDS JONATHAN</p>
+        </div>
       </div>
-      <div  class="start-button">
-        <button id="startButton" class="game-button">START GAME</button>
-      </div>
+      <div></div>
     </div>
-    <script src="game.js" type="module"></script>   
-  </body>
+
+    <canvas id="canvas"></canvas>
+
+    <div>
+      <p id="winnerText" class="winner-text"></p>
+    </div>
+    <div class="start-button">
+      <button id="startButton" class="game-button">START GAME</button>
+    </div>
+  </main>
+  <script src="game.js" type="module"></script>
+</body>
+
 </html>
