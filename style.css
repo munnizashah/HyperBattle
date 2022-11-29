@@ -104,12 +104,14 @@ main {
 
 .eskil-name {
   position: absolute;
+  background-color: black;
   top: 80%;
   left: 2%;
 }
 
 .jonathan-name {
   position: absolute;
+  background-color: black;
   top: 80%;
   right: 2%;
 }
