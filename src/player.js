@@ -3,7 +3,7 @@ import { env, playSound } from "../game.js";
 
 export class Player extends Sprite {
   constructor({
-    position,
+    defaultPosition,
     velocity,
     hasGravity,
     spriteSet,
@@ -14,7 +14,8 @@ export class Player extends Sprite {
     name,
     lastDirection
   }) {
-    super({ position, velocity, hasGravity, spriteSet });
+    super({ position: { ...defaultPosition }, velocity, hasGravity, spriteSet });
+    this.defaultPosition = defaultPosition;
     this.moving = { right: false, left: false };
     this.jumpHeight = jumpHeight;
     this.hasDoubleJump = hasDoubleJump;
@@ -97,21 +98,27 @@ export class Player extends Sprite {
     if (!env.gameRunning) return;
 
     this.health -= damage;
-    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
+
+    //UPDATE GRAPHICS AND PLAY SOUND
+    this.updateHealthBar()
     this.playAnimation(this.spriteSet['hit' + this.lastDirection], true);
-
-    if (knockback) this.velocity = { ...knockback };
-
     playSound('hit');
+
+
+    //APPLY KNOCKBACK
+    if (knockback) this.velocity = { ...knockback };
 
     if (this.enemy.lastDirection === 'Left') {
       this.velocity.x = -this.velocity.x
     }
 
+    //CHECK DEATH
     if (this.health <= 0) {
-      let winner = document.getElementById('winnerText');
-      winner.innerText = (`${this.enemy.name} WON!`)
-      winner.style.display = "block"
+      const winnerTextEl = document.getElementById('winnerText');
+      winnerTextEl.innerText = (`${this.enemy.name} WON!`)
+
+      const winnerOverlayEl = document.getElementById('winnerOverlay')
+      winnerOverlayEl.style.display = "flex"
 
       this.playAnimation(this.spriteSet['death' + this.lastDirection], true, () => {
 
@@ -119,11 +126,14 @@ export class Player extends Sprite {
 
         env.gameRunning = false;
 
-
-
       });
 
     }
+
+  }
+
+  updateHealthBar() {
+    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
 
   }
 

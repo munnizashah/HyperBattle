@@ -20,12 +20,10 @@ export const renderQueue = [];
 canvas.width = env.width;
 canvas.height = env.height;
 
-c.fillRect(0, 0, canvas.width, canvas.height);
-
-const playerOne = new Player({
-  position: {
+export const playerOne = new Player({
+  defaultPosition: {
     x: 150,
-    y: 0,
+    y: 100,
   },
   velocity: {
     x: 0,
@@ -42,8 +40,8 @@ const playerOne = new Player({
 
 
 
-const playerTwo = new Player({
-  position: {
+export const playerTwo = new Player({
+  defaultPosition: {
     x: 875,
     y: 100,
   },
@@ -65,7 +63,7 @@ const playerTwo = new Player({
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
-const background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
+let background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
 
 renderQueue.push(background, playerOne, playerTwo);
 
@@ -82,7 +80,7 @@ playerOne.attacks = {
   }),
 
   punch: new AttackBox(playerOne, {
-    damage: 70,
+    damage: 1000,
     knockback: { x: 10, y: -15 }
   })
 };
@@ -115,8 +113,25 @@ function animate() {
   });
 }
 
+//SOUNDS
+export function playSound(soundString) {
 
-// eventlistners
+  const sound = document.createElement('audio');
+
+  sound.src = `../assets/sound/${soundString}.mp3`;
+
+  document.body.append(sound);
+
+  sound.play();
+
+  setTimeout(() => {
+    sound.remove()
+  }, 1000);
+
+};
+
+
+//EVENT LISTENERS
 function eventInput(event, isKeydown) {
   if (!env.gameRunning) return;
   switch (event.key) {
@@ -172,6 +187,33 @@ window.addEventListener("keyup", (event) => {
   eventInput(event, false);
 });
 
+
+
+
+
+function resetGame() {
+
+  const winnerOverlayEl = document.getElementById('winnerOverlay')
+
+  winnerOverlayEl.style.display = "none";
+
+  background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
+
+  [playerOne, playerTwo].forEach(player => {
+    player.health = 1000;
+    player.position = { ...player.defaultPosition };
+    player.velocity = { x: 0, y: 0 };
+    player.updateHealthBar();
+
+  });
+
+}
+
+
+
+
+
+//BUTTONS
 document.getElementById('startButton').onclick = function startGame() {
 
   const startMenu = document.getElementById('startMenu');
@@ -183,28 +225,27 @@ document.getElementById('startButton').onclick = function startGame() {
   animate();
 }
 
-export function playSound(soundString) {
 
-  const sound = document.createElement('audio');
-
-  sound.src = `../assets/sound/${soundString}.mp3`;
-
-  document.body.append(sound);
-
-  sound.play();
-
-  setTimeout(() => {
-    sound.remove()
-  }, 1000);
-
-};
+document.getElementById('mainMenuButton').onclick = () => {
 
 
+  resetGame();
+
+  const startMenu = document.getElementById('startMenu');
+
+  startMenu.style.display = 'flex';
 
 
+}
 
 
+document.getElementById('playAgainButton').onclick = () => {
 
+  resetGame();
 
+  env.gameRunning = true;
 
+  animate();
+
+}
 
