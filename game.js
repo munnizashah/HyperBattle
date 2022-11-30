@@ -29,17 +29,12 @@ export const playerOne = new Player({
     x: 150,
     y: 100,
   },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
   hasGravity: true,
   spriteSet: spriteSets.eskil,
   healthBar: document.getElementById('playerOneHealth'),
   name: 'Eskil',
   lastDirection: 'Right',
   hasDoubleJump: true
-
 });
 
 export const playerTwo = new Player({
@@ -47,17 +42,12 @@ export const playerTwo = new Player({
     x: 875,
     y: 100,
   },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
   hasGravity: true,
   spriteSet: spriteSets.jonathan,
   healthBar: document.getElementById('playerTwoHealth'),
   name: 'Jonathan',
   lastDirection: 'Left',
   hasDoubleJump: true
-
 });
 
 playerOne.enemy = playerTwo;
@@ -182,7 +172,6 @@ function eventInput(event, isKeydown) {
 }
 
 window.addEventListener("keydown", (event) => {
-  console.log(event.key);
   eventInput(event, true);
 });
 

@@ -118,6 +118,10 @@ export class Player extends Sprite {
 
     //CHECK DEATH
     if (this.health <= 0) {
+
+      this.health = 0;
+      this.updateHealthBar()
+
       const winnerTextEl = document.getElementById('winnerText');
       winnerTextEl.innerText = (`${this.enemy.name} WON!`)
 
@@ -137,16 +141,18 @@ export class Player extends Sprite {
   }
 
   updateHealthBar() {
-    this.healthBar.style.width = Math.floor(this.health / 10) + '%';
+    const percentage = Math.floor(this.health / 10);
+    console.log(percentage);
+    this.healthBar.style.width = percentage + '%';
 
   }
 
-  //PREVENT INTERRUPTION OF DEATH ANIMATION
+  //PREVENT INTERRUPTION OF PLAYONCE ANIMATIONS
   playAnimation(sprite, playOnce = false, callback = () => { }) {
 
     if (this.activeSprite) {
       if (sprite !== this.spriteSet['death' + this.lastDirection]) {
-        if (!this.isLastFrame && this.activeSprite.playOnce) return console.log('Death animation can not be interrupted');
+        if (!this.isLastFrame && this.activeSprite.playOnce) return;
 
       }
     }
