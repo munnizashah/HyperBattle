@@ -1,5 +1,5 @@
 import { Sprite } from "./src/sprite.js";
-import { AttackBox, isColliding } from "./src/attackbox.js";
+import { AttackBox } from "./src/attackbox.js";
 import { spriteSets } from "./src/animation.js";
 import { Player } from "./src/player.js";
 
@@ -101,8 +101,8 @@ function animate() {
 
   window.requestAnimationFrame(animate); // this creates an infinite loop.
 
-  renderQueue.forEach((element) => {
-    element.update();
+  renderQueue.forEach((sprite) => {
+    sprite.update();
   });
 }
 
