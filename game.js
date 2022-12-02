@@ -6,15 +6,23 @@ import { Player } from "./src/player.js";
 //CREATE ENVIRONMENT
 export const c = canvas.getContext("2d");
 
+//? Important variables (handle state, exported) at the top
+
+//+wdadwad
+//$rerser
+//-test
+
+//! VARIABLES (PRIMITIVE) and OBJECTS
 export const env = {
   width: 1024,
   height: 576,
   gravity: 0.6,
   airResistance: 0.05,
+  //$ STATE
   gameRunning: false,
   displayAttackBoxes: false
 };
-
+//! ARRAYS
 export const renderQueue = [];
 
 canvas.width = env.width;
@@ -94,13 +102,16 @@ playerTwo.attacks = {
   })
 };
 
+//? Functions
 
+//! FUNCTION
 //ANIMATION LOOP
 function animate() {
+  //$ CHECK STATE
   if (!env.gameRunning) return;
 
   window.requestAnimationFrame(animate); // this creates an infinite loop.
-
+  //! LOOP
   renderQueue.forEach((sprite) => {
     sprite.update();
   });
@@ -123,6 +134,7 @@ export function playSound(soundString) {
 
 };
 
+//? Event listeners and DOM manipulation
 
 //EVENT LISTENERS
 function eventInput(event, isKeydown) {
@@ -189,6 +201,7 @@ function resetGame() {
 
   background = new Sprite({ spriteSet: spriteSets.background, randomSprite: true });
 
+  //$ RESET USER STATE
   [playerOne, playerTwo].forEach(player => {
     player.health = 1000;
     player.position = { ...player.defaultPosition };
@@ -200,6 +213,7 @@ function resetGame() {
 
 }
 
+//$ UPDATE STATE
 function startGame() {
   env.gameRunning = true;
 
@@ -211,6 +225,7 @@ const startMenu = document.getElementById('startMenu');
 
 document.getElementById('startButton').onclick = () => {
 
+  //$ DOM RENDERING
   startMenu.style.display = 'none';
 
   startGame();
