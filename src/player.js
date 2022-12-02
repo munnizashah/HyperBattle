@@ -15,15 +15,17 @@ export class Player extends Sprite {
     lastDirection
   }) {
     super({ position: { ...defaultPosition }, velocity, hasGravity, spriteSet });
+
+    this.name = name;
     this.defaultPosition = defaultPosition;
-    this.moving = { right: false, left: false };
+    this.healthBar = healthBar;
+
     this.jumpHeight = jumpHeight;
     this.hasDoubleJump = hasDoubleJump;
-    this.health = health;
-    this.healthBar = healthBar;
-    this.name = name;
 
+    this.moving = { right: false, left: false };
     this.lastDirection = lastDirection;
+    this.health = health;
 
   }
 
